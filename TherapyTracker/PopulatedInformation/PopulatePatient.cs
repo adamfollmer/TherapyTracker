@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserInput
+namespace PopulatedInformation
 {
-    class Patient
+    class PopulatePatient
     {
-        public static void PatientMenu()
-        {
-            //1. Check therapy time
-        }
     }
 }

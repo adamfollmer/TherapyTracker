@@ -6,32 +6,30 @@ using System.Threading.Tasks;
 
 namespace TherapyTracker
 {
-    class Therapist
+    public class Therapist
     {
-        String name;
+        public String name;
+        public Discipline discipline;
         Schedule schedule;
         CompletedSchedule completedSchedule;
+        Time punchInPunchOut;
         Dictionary<DateTime, double> productivityLog = new Dictionary<DateTime, double>();
-        bool punchStatus;//true = punched in, false = punched out
-        public Therapist(String Name)
+        public bool punchStatus = false;//true = punched in, false = punched out
+        public Therapist(String Name, Discipline Discipline)
         {
             name = Name;
+            schedule = new Schedule(this);
+            completedSchedule = new CompletedSchedule(this);
+            discipline = Discipline;
         }
-        public void CalculatePatientContact()
+
+        public enum Discipline
         {
-            //For each patient duration in completedSchedule
-            //Add calculated minutes to a hold variable
-            //return an int value
+            speechTherapist,
+            physicalTherapist,
+            occupationalTherapist,
         }
-        public void AddAppointment()
-        {
-            //What's the patients name
-            //What's the start time
-            //How long do you want to see the patient for
-            //Calculate the end time
-            //Verify no conflicts by checking masterSchedule
-            //Print appointment details
-        }
+        //public void AddAppointment() <-This seems to get done within the Schedule class
         public void GetNewPatient() //By far the most complicated thing
         {
             //Look at remaining schedule
@@ -39,23 +37,30 @@ namespace TherapyTracker
             //Patients preferences
             //Other scheduled times
         }
-
-        public void ChangePatientPrefrences()
+        public void AutoPunch()
         {
-            //What's the patients name
-            //create new PatientTimeConflict 
-            //Add it to potentialConflicts list in the patient
-            //Print the new conflict
+            if (punchStatus == false)
+            {
+                punchInPunchOut.startTime = DateTime.Now;
+                punchStatus = true;
+            } else
+            {
+                punchInPunchOut.endTime = DateTime.Now;
+                punchStatus = false;
+            }
         }
-        public void PunchIn()
+        public void ManualPunchIn(DateTime time)
         {
             //Real time punch versus missed punch
             //Take information if missed punch
+            punchInPunchOut.startTime = time;
+
         }
-        public void PunchOut()
+        public void ManualPunchOut(DateTime time)
         {
             //Real time out punch versus missed punch
             //Take information if missed punch
+            punchInPunchOut.endTime = time;
         }
         public void CheckProductivity()
         {
@@ -65,7 +70,9 @@ namespace TherapyTracker
         public void AddProductivity()
         {
             //should run after therapists punches out
-            //Time in - Time out
+            double hoursWorked = punchInPunchOut.subtractTimeDifferenceMinutes();
+            double patientContact = completedSchedule.calculatePatientContactMinutes();
+            double productivity = patientContact / hoursWorked;
             //total divided by patient contact
         }
         public void CompleteAppointment()

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TherapyTracker;
 
-namespace UserInterface
+namespace UserInput
 {
     class UserInterface
     {
@@ -17,7 +18,6 @@ namespace UserInterface
             Console.WriteLine("4. Patient");
             MakeMenuSelection();
         }
-
         public void MakeMenuSelection()
         {
             int userChoice = Convert.ToInt32(Console.ReadLine());
@@ -38,6 +38,10 @@ namespace UserInterface
                 default:
                     break;
             }
+        }
+        public void SelectTherapist()
+        {
+
         }
     }
 }

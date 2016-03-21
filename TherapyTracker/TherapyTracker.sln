@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TherapyTracker", "TherapyTracker\TherapyTracker.csproj", "{E8E2F3B3-CDC0-4636-AB0D-B98ABE56AC92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterface\UserInterface.csproj", "{F989C249-09CA-40CF-AFEE-0BCD8198F3CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInput", "UserInterface\UserInput.csproj", "{F989C249-09CA-40CF-AFEE-0BCD8198F3CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace TherapyTracker
 {
-    public class Schedule
+     class Schedule
     {
-         List<Appointment> therapistSchedule = new List<Appointment>();
-        public Schedule()
+        public Therapist therapist;
+        public List<Appointment> therapistSchedule = new List<Appointment>();
+        public Schedule(Therapist Therapist)
         {
+            therapist = Therapist;
         }
 
-         void addAppointment (Appointment appointment)
+         public void addAppointment (Appointment appointment)
         {
             therapistSchedule.Add(appointment);
+        }
+        public void removeAppointment (Appointment appointment)
+        {
+            therapistSchedule.Remove(appointment);
         }
     }
 }

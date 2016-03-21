@@ -8,7 +8,8 @@ namespace TherapyTracker
 {
     class Director:Therapist
     {
-        public Director(String Name) : base(Name)
+        public Director(String Name, Discipline Discipline) :
+            base(Name, Discipline)
         {
 
         }
@@ -18,7 +19,7 @@ namespace TherapyTracker
             //Change goal RUG level
             //
         }
-        public void ModifyTimeSeen()//Will be difficult
+        public void ModifyTimeSeen(Appointment appointment)//Will be difficult
         {
             //Ask which patient
             //Ask which discipline to increase
