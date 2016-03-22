@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TherapyTracker
 {
-    class Appointment:Time
+    public class Appointment:Time
     {
         public Patient patientIdentifier;
         //Considering a static variable to function as a counter to provide a unique ID

@@ -8,14 +8,14 @@ namespace TherapyTracker
 {
     public class Therapist
     {
-        public String name;
+        public string name;
         public Discipline discipline;
-        Schedule schedule;
-        CompletedSchedule completedSchedule;
-        Time punchInPunchOut;
+        public Schedule schedule;
+        public CompletedSchedule completedSchedule;
+        public Time punchInPunchOut;
         Dictionary<DateTime, double> productivityLog = new Dictionary<DateTime, double>();
         public bool punchStatus = false;//true = punched in, false = punched out
-        public Therapist(String Name, Discipline Discipline)
+        public Therapist(string Name, Discipline Discipline)
         {
             name = Name;
             schedule = new Schedule(this);
@@ -29,7 +29,10 @@ namespace TherapyTracker
             physicalTherapist,
             occupationalTherapist,
         }
-        //public void AddAppointment() <-This seems to get done within the Schedule class
+        public void AddAppointment(Appointment Appointment)
+        {
+            schedule.addAppointment(Appointment);
+        }
         public void GetNewPatient() //By far the most complicated thing
         {
             //Look at remaining schedule
@@ -46,6 +49,7 @@ namespace TherapyTracker
             } else
             {
                 punchInPunchOut.endTime = DateTime.Now;
+                AddProductivity();
                 punchStatus = false;
             }
         }
@@ -61,19 +65,29 @@ namespace TherapyTracker
             //Real time out punch versus missed punch
             //Take information if missed punch
             punchInPunchOut.endTime = time;
+            AddProductivity();
         }
-        public void CheckProductivity()
+        public void CheckProductivity(DateTime CheckDate)
         {
-            //Ask for date
+            double productivitiy;
+            if (productivityLog.TryGetValue(CheckDate, out productivitiy))
+            {
+                Console.WriteLine(productivitiy);
+            }
+            else
+            {
+                Console.WriteLine("No productivity information logged for that day");
+            }
+            
             //Pull from dictionary based on date
         }
         public void AddProductivity()
         {
-            //should run after therapists punches out
             double hoursWorked = punchInPunchOut.subtractTimeDifferenceMinutes();
             double patientContact = completedSchedule.calculatePatientContactMinutes();
-            double productivity = patientContact / hoursWorked;
-            //total divided by patient contact
+            double productivity = (patientContact / hoursWorked) * 100;
+            productivityLog.Add(DateTime.Today.Date, productivity);
+           
         }
         public void CompleteAppointment()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TherapyTracker
 {
-    class CompletedSchedule
+    public class CompletedSchedule
     {
         public Therapist therapist;
         public List<CompletedAppointment> completedTherapistSchedule = new List<CompletedAppointment>();

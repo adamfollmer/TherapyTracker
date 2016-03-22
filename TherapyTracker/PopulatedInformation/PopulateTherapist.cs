@@ -15,13 +15,16 @@ namespace PopulatedInformation
         public TherapyTracker.Therapist three = new TherapyTracker.Therapist("Roger", Therapist.Discipline.physicalTherapist);
         public TherapyTracker.Therapist four = new TherapyTracker.Therapist("Tina", Therapist.Discipline.physicalTherapist);
 
+        public AddAppointmentsToTherapistSchedule()
+        {
+            
+        }
         public PopulateTherapist()
         {
             therapistList.AddTherapist(one);
             therapistList.AddTherapist(two);
             therapistList.AddTherapist(three);
             therapistList.AddTherapist(four);
-
         }
     }
 }

@@ -6,16 +6,71 @@ using System.Threading.Tasks;
 
 namespace UserInput
 {
-    class Nurse:Patient
+    public class Nurse:Patient
     {
-        public static void SelectMenu()
+        public TherapyTracker.Nurse ratchet = new TherapyTracker.Nurse();
+        public void PrintMenu()
         {
-            //Select from nurse or patient menu
-            //patientMenu pulls from patient class
+            Console.WriteLine("1. Remove a patient");
+            Console.WriteLine("2. Add patient time preference");
+            Console.WriteLine("3. Remove patient time preference");
+            Console.WriteLine();
         }
-        public void NurseMenu()
+        public void SelectMenuChoice(TherapyTracker.Patient Patient, TherapyTracker.RunProgram Program)
         {
-            //Edit patient info
+            PrintMenu();
+            int userChoice = Convert.ToInt32(Console.ReadLine());
+            switch (userChoice)
+            {
+                case 1:
+                    ratchet.RemovePatient(Patient, Program.patientList);
+                    break;
+                case 2:
+                    ratchet.AddPatientPrefrences(Patient, GetTimeForPatientPreferenceAdd());
+                    break;
+                case 3:
+                    ratchet.RemovePatientPreference(Patient, GetConflictTypeForRemoval());
+                    break;
+                default:
+                    break;
+            }
+        }
+        //public void
+        public TherapyTracker.PatientTimeConflicts GetTimeForPatientPreferenceAdd ()
+        {
+            Console.WriteLine("What is the start time of the conflict?");
+            DateTime start = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("What is the end time of the conflict?");
+            DateTime end = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("What is the reason for the conflict?");
+            PrintConflictTypes();
+            TherapyTracker.PatientTimeConflicts.ConflictType reason = 
+                (TherapyTracker.PatientTimeConflicts.ConflictType)Convert.ToInt32(Console.ReadLine());
+            TherapyTracker.PatientTimeConflicts conflict = 
+                new TherapyTracker.PatientTimeConflicts(start, end, reason);
+            return conflict;
+        }
+        public void PrintConflictTypes()//There is a way of iterating through enums, but will skip for now
+        {
+            Console.WriteLine("1. Meal");
+            Console.WriteLine("2. Appointment");
+            Console.WriteLine("3. Preference");
+        }
+        public int GetConflictTypeForRemoval()
+        {
+            PrintConflictTypes();
+            Console.WriteLine("What conflict type do you want to remove?");
+            int userInput =  Convert.ToInt32(Console.ReadLine());
+            return userInput;
+        } 
+        public void GetNewPatientInformation(TherapyTracker.RunProgram Program)
+        {
+            Console.WriteLine("What is the Patient's Name?");
+            string newPatientName = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("Provide a unique numerical identifier for the patient.");
+            int newPatientID = Convert.ToInt32(Console.ReadLine());
+            TherapyTracker.Patient newPatient = new TherapyTracker.Patient(newPatientName, newPatientID);
+            ratchet.AddPatient(newPatient, Program.patientList);
         }
     }
 }

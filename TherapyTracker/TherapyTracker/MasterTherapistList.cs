@@ -8,7 +8,7 @@ namespace TherapyTracker
 {
     public class MasterTherapistList
     {
-        List<Therapist> masterList = new List<Therapist>();
+        public List<Therapist> masterList = new List<Therapist>();
 
         public void AddTherapist(Therapist Therapist)
         {

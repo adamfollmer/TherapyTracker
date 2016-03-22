@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TherapyTracker
 {
-    class MasterPatientList
+    public class MasterPatientList
     {
-        List<Patient> masterPatientList = new List<Patient>();
+        public List<Patient> masterPatientList = new List<Patient>();
 
         public MasterPatientList()
         {
@@ -17,12 +17,10 @@ namespace TherapyTracker
         public void AddPatient(Patient Patient)
         {
             masterPatientList.Add(Patient);
-            Console.WriteLine(Patient.name + " has been added.");
         }
         public void RemovePatient(Patient Patient)
         {
             masterPatientList.Remove(Patient);
-            Console.WriteLine(Patient.name + " has been removed.");
         }
         public void PrintPatientList()
         {

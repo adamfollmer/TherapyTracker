@@ -8,9 +8,9 @@ using System.IO;
 
 namespace TherapyTracker
 {
-    class MasterSchedule
+    public class MasterSchedule
     {
-        List<Schedule> masterSchedule = new List<Schedule>();
+        public List<Schedule> masterSchedule = new List<Schedule>();
         public MasterSchedule()
         {
         }

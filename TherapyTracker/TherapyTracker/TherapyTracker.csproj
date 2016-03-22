@@ -49,10 +49,13 @@
     <Compile Include="Director.cs" />
     <Compile Include="MasterPatientList.cs" />
     <Compile Include="MasterSchedule.cs" />
+    <Compile Include="MasterTherapistList.cs" />
+    <Compile Include="Nurse.cs" />
     <Compile Include="Patient.cs" />
+    <Compile Include="Building.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceUtilizationGroup.cs" />
+    <Compile Include="RunProgram.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Therapist.cs" />
     <Compile Include="Time.cs" />

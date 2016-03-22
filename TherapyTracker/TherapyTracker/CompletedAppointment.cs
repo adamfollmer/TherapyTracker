@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TherapyTracker
 {
-    class CompletedAppointment:Appointment
+    public class CompletedAppointment:Appointment
         //This class is needed to extend beyond the regular appointment
         //because the parent class is a theoretical/scheduled object
         //Whereas this is used only when an appointment is completed.

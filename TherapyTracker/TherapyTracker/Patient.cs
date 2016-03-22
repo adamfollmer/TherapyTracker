@@ -9,24 +9,27 @@ namespace TherapyTracker
     public class Patient
     {
         public String name;
+        public int uniqueID;
         public ResourceUtilizationGroup currentRUG;
+        public ResourceUtilizationGroup goalRUG;
         public double minutesTowardRUG;
-        List<PatientTimeConflicts> potentialConflicts = new List<PatientTimeConflicts>();
+        public List<PatientTimeConflicts> potentialConflicts = new List<PatientTimeConflicts>();
 
-        public Patient(String Name)
+        public Patient(String Name, int UniqueID)
         {
             name = Name;
+            uniqueID = UniqueID;
         }
         public enum ResourceUtilizationGroup
         {
-            RU,
-            RV,
-            RH,
-            RM,
-            RL,
+            RU = 1,
+            RV = 2,
+            RH = 3,
+            RM = 4,
+            RL = 5,
             NA
         }
-        public void AssignRUG()
+        public void DetermineRUG()
         {
             if (minutesTowardRUG >= 720)
             {
@@ -48,20 +51,26 @@ namespace TherapyTracker
                 currentRUG = ResourceUtilizationGroup.NA;
             }
         }
-        public void ChangePatientPrefrences()
-        {
-            //create new PatientTimeConflict 
-            //Add it to potentialConflicts list in the patient
-            //Print the new conflict
-        }
-        public void addTimeConflict(Time Time, PatientTimeConflicts.ConflictType Conflict)
-        {
-            PatientTimeConflicts conflict = new PatientTimeConflicts(Time.startTime, Time.endTime, Conflict);
-        }
-
         public void printTimeConflicts()
         {
-
+            foreach (PatientTimeConflicts conflict in potentialConflicts)
+            {
+                Console.WriteLine(conflict.conflictIdentifier);
+                Console.WriteLine("From " + conflict.startTime + " to " + conflict.endTime);
+            }
+        }
+        public void CheckTherapyTime(MasterSchedule ScheduleList)
+        {
+            foreach (Schedule schedule in ScheduleList.masterSchedule)
+            {
+                foreach (Appointment appointment in schedule.therapistSchedule)
+                {
+                    if (appointment.patientIdentifier.uniqueID == this.uniqueID)
+                    {
+                        Console.WriteLine("You have therapy at " + appointment.startTime);
+                    }
+                }
+            }
         }
     }
 }

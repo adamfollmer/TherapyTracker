@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace UserInput
 {
-    class Patient
+    public class Patient
     {
-        public static void PatientMenu()
+        public void PatientMenu(TherapyTracker.Patient Patient, TherapyTracker.RunProgram Program)
         {
-            //1. Check therapy time
+            Console.WriteLine("Hello "+ Patient.name + "!\n");
+            Patient.CheckTherapyTime(Program.scheduleList);
+            Console.ReadLine();
         }
     }
 }

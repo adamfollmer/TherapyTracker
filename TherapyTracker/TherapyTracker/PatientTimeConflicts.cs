@@ -17,9 +17,9 @@ namespace TherapyTracker
 
         public enum ConflictType
         {
-            Meal,
-            Appointment,
-            Preference,
+            Meal = 1,
+            Appointment = 2,
+            Preference = 3,
         };
     }
 }

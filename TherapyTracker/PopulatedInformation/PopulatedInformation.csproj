@@ -43,11 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PopulateDirector.cs" />
+    <Compile Include="PopulatePatient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PopulateTherapist.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TherapyTracker\TherapyTracker.csproj">
+      <Project>{e8e2f3b3-cdc0-4636-ab0d-b98abe56ac92}</Project>
+      <Name>TherapyTracker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserInterface\UserInput.csproj">
+      <Project>{f989c249-09ca-40cf-afee-0bcd8198f3ce}</Project>
+      <Name>UserInput</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

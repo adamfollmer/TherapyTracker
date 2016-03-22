@@ -54,6 +54,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TherapyTracker\TherapyTracker.csproj">
+      <Project>{e8e2f3b3-cdc0-4636-ab0d-b98abe56ac92}</Project>
+      <Name>TherapyTracker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
