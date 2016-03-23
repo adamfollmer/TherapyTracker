@@ -35,14 +35,14 @@ namespace TherapyTracker
             Console.WriteLine("\nAn appointment has been added for " + Appointment.patientIdentifier.name);
             Console.WriteLine("Starting at " + Appointment.startTime + " and ending at " + Appointment.endTime+ ".\n");
         }
-        public void GetNewPatient() //By far the most complicated thing
-        {
+        //public void GetNewPatient() //By far the most complicated thing
+        //{WILL LIKELY LEAVE OUT FOR NOW
             
-            //Look at remaining schedule
-            //Determine which patient is available by checking:
-            //Patients preferences
-            //Other scheduled times
-        }
+        //    //Look at remaining schedule
+        //    //Determine which patient is available by checking:
+        //    //Patients preferences
+        //    //Other scheduled times
+        //}
         public void AutoPunch()
         {
             if (punchStatus == false)
@@ -109,7 +109,17 @@ namespace TherapyTracker
                 Console.WriteLine("From " + appointment.startTime + " to " + appointment.endTime);
                 Console.WriteLine();
             }
-            Console.ReadLine();
+        }
+        public void PrintCompletedSchedule()
+        {
+            Console.WriteLine(name + "'s Completed Schedule");
+            foreach (CompletedAppointment appointment in completedSchedule.completedTherapistSchedule)
+            {
+                Console.WriteLine();
+                Console.WriteLine(appointment.patientIdentifier.name);
+                Console.WriteLine("Was seen from " + appointment.startTime + " to " + appointment.endTime);
+            }
+            Console.WriteLine();
         }
     }
 }

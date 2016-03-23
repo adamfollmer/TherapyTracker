@@ -35,7 +35,6 @@ namespace UserInput
                     break;
             }
         }
-        //public void
         public TherapyTracker.PatientTimeConflicts GetTimeForPatientPreferenceAdd ()
         {
             Console.WriteLine("What is the start time of the conflict?");

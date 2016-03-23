@@ -21,36 +21,45 @@ namespace UserInput
             Console.WriteLine("3. Assign a new patient");
             Console.WriteLine("4. Check productivity from a previous day");
             Console.WriteLine("5. Complete an appointment");
-            Console.WriteLine("6. Print therapist schedule.\n");
-            Console.WriteLine("7. Return to Main Menu");
+            Console.WriteLine("6. View therapist schedule.");
+            Console.WriteLine("7. View completed schedule.\n");
+            Console.WriteLine("8. Return to Main Menu");
         }
         public void MakeMenuSelection(TherapyTracker.Therapist Therapist, UserInterface Menu)
         {
-            PrintTherapistMenu();
-            int userChoice = Convert.ToInt32(Console.ReadLine());
-            switch (userChoice)
+            int userChoice = 0;
+            while (userChoice != 8)
             {
-                case 1:
-                    Punch(Therapist);
-                    break;
-                case 2:
-                    AddAppointment(Therapist, Menu);
-                    break;
-                case 3:
-                    //Get New Patient
-                    //Menu.program.mainDirector.
-                    break;
-                case 4:
-                    CheckProductivity(Therapist);
-                    break;
-                case 5:
-                    CompleteAppointment(Therapist, Menu);
-                    break;
-                case 6:
-                    Therapist.PrintSchedule();
-                    break;
-                default:
-                    break;
+                Console.WriteLine("Welcome " + Therapist.name + "!");
+                PrintTherapistMenu();
+                userChoice = Convert.ToInt32(Console.ReadLine());
+                switch (userChoice)
+                {
+                    case 1:
+                        Punch(Therapist);
+                        break;
+                    case 2:
+                        AddAppointment(Therapist, Menu);
+                        break;
+                    case 3:
+                        //Get New Patient
+                        //Menu.program.mainDirector.
+                        break;
+                    case 4:
+                        CheckProductivity(Therapist);
+                        break;
+                    case 5:
+                        CompleteAppointment(Therapist, Menu);
+                        break;
+                    case 6:
+                        Therapist.PrintSchedule();
+                        break;
+                    case 7:
+                        Therapist.PrintCompletedSchedule();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         public void Punch(TherapyTracker.Therapist Therapist)
@@ -104,7 +113,7 @@ namespace UserInput
             Console.WriteLine("Which date do you want to check your productivity for?");
             DateTime checkDate = Convert.ToDateTime(Console.ReadLine());
             Therapist.CheckProductivity(checkDate.Date);
-            
+
         }
         public void CompleteAppointment(TherapyTracker.Therapist Therapist, UserInterface Menu)
         {
@@ -116,7 +125,8 @@ namespace UserInput
             {
                 TherapyTracker.CompletedAppointment completed = PullOriginalAppointmentTime(Therapist, holdPatient);
                 Therapist.AddCompleteAppointment(completed);
-            } else
+            }
+            else
             {
                 TherapyTracker.CompletedAppointment completed = GetCompletedAppointmentTime(holdPatient);
                 Therapist.AddCompleteAppointment(completed);
@@ -137,7 +147,7 @@ namespace UserInput
             Console.WriteLine("No appointments match this therapist and patient.");
             return null;
         }
-        public TherapyTracker.CompletedAppointment GetCompletedAppointmentTime (TherapyTracker.Patient Patient)
+        public TherapyTracker.CompletedAppointment GetCompletedAppointmentTime(TherapyTracker.Patient Patient)
         {
             DateTime startTime = GetStartTime();
             DateTime endTime = GetEndTime(startTime);

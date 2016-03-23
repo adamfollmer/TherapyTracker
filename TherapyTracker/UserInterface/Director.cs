@@ -13,28 +13,33 @@ namespace UserInput
             Console.WriteLine("\n1. Set patient's RUG level");
             Console.WriteLine("2. Increase minutes for appointment");
             Console.WriteLine("3. Reduce minutes for appointment");
-            Console.WriteLine("4. Print all Schedules\n");
+            Console.WriteLine("4. View all Schedules\n");
+            Console.WriteLine("5. Return to Main Menu");
         }
         public void SelectMenu(UserInterface Menu)
         {
-            PrintMenuOptions();
-            int userChoice = Convert.ToInt32(Console.ReadLine());
-            switch (userChoice)
+            int userChoice = 0;
+            while (userChoice != 5)
             {
-                case 1:
-                    SetRug(Menu);
-                    break;
-                case 2:
-                    IncreaseMinutes(Menu);
-                    break;
-                case 3:
-                    DecreaseMinutes(Menu);
-                    break;
-                case 4:
-                    Menu.program.mainDirector.PrintTherapistSchedules();
-                    break;
-                default:
-                    break;
+                PrintMenuOptions();
+                userChoice = Convert.ToInt32(Console.ReadLine());
+                switch (userChoice)
+                {
+                    case 1:
+                        SetRug(Menu);
+                        break;
+                    case 2:
+                        IncreaseMinutes(Menu);
+                        break;
+                    case 3:
+                        DecreaseMinutes(Menu);
+                        break;
+                    case 4:
+                        Menu.program.mainDirector.PrintTherapistSchedules();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         public void SetRug(UserInterface Menu)
@@ -42,7 +47,7 @@ namespace UserInput
             TherapyTracker.Patient holdPatient = Menu.SelectPatient();
             int rugLevel = PrintRUGOptions();
             Menu.program.mainDirector.UpdatePatientRUGLevel(holdPatient, rugLevel);
-            
+
         }
         public int PrintRUGOptions()
         {

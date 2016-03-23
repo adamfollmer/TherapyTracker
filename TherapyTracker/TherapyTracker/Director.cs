@@ -20,7 +20,7 @@ namespace TherapyTracker
         {
             Patient.goalRUG = (Patient.ResourceUtilizationGroup)Rug;
         }
-        public void IncreasePatientTimeSeen(int AppointmentID, double IncreasedTime)//Will be difficult to verify that this is okay
+        public void IncreasePatientTimeSeen(int AppointmentID, double IncreasedTime)
         {
             if (GetAppointmentFromID(AppointmentID) != null)
             {
@@ -116,6 +116,5 @@ namespace TherapyTracker
                 }
             }
         }
-
     }
 }

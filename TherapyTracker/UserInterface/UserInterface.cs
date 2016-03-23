@@ -111,6 +111,5 @@ namespace UserInput
                 userNurse.SelectMenuChoice(SelectPatient(), program);
             }
         }
-
     }
 }

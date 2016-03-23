@@ -14,7 +14,6 @@ namespace TherapyTracker
         {
             therapist = Therapist;
         }
-
          public void addAppointment (Appointment appointment)
         {
             therapistSchedule.Add(appointment);
