@@ -57,7 +57,7 @@ namespace TherapyTracker
         {
             foreach (Schedule schedule in masterSchedule)
             {
-                foreach (Appointment appointment in schedule.therapistSchedule)
+                foreach (Appointment appointment in schedule.therapist.schedule.therapistSchedule)
                 {
                     if (appointment.patientIdentifier.uniqueID == ProposedAppointment.patientIdentifier.uniqueID)
                     {
@@ -76,7 +76,7 @@ namespace TherapyTracker
         {
             foreach(Schedule schedule in masterSchedule)
             {
-                foreach(Appointment appointment in schedule.therapistSchedule)
+                foreach(Appointment appointment in schedule.therapist.schedule.therapistSchedule)
                 {
                     if (appointment.appointmentID == AppointmentID)
                     {
