@@ -59,9 +59,9 @@ namespace TherapyTracker
                 Console.WriteLine("From " + conflict.startTime + " to " + conflict.endTime);
             }
         }
-        public void CheckTherapyTime(MasterSchedule ScheduleList)
+        public void CheckTherapyTime(Director Director)
         {
-            foreach (Schedule schedule in ScheduleList.masterSchedule)
+            foreach (Schedule schedule in Director.masterSchedule)
             {
                 foreach (Appointment appointment in schedule.therapistSchedule)
                 {

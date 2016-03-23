@@ -10,13 +10,12 @@ namespace TherapyTracker
     {
         public MasterTherapistList therapistList;
         public MasterPatientList patientList;
-        public MasterSchedule scheduleList;
         public Director mainDirector; 
         public RunProgram()
         {
+            mainDirector = new Director("Director", therapistList, patientList);
             therapistList = new MasterTherapistList();
             patientList = new MasterPatientList();
-            scheduleList = new MasterSchedule();
         }
 
         public void PrePopulate()
@@ -25,8 +24,8 @@ namespace TherapyTracker
             buildingOne.AddToTherapistList(therapistList);
             buildingOne.AddToPatientList(patientList);
             buildingOne.AddAppointmentsToSchedule();
-            buildingOne.AddToScheduleList(scheduleList);
-            mainDirector = new Director("Director", therapistList, patientList, scheduleList);
+            buildingOne.AddToScheduleList(mainDirector);
+
         }
         
     }

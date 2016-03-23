@@ -48,7 +48,6 @@
     <Compile Include="CompletedSchedule.cs" />
     <Compile Include="Director.cs" />
     <Compile Include="MasterPatientList.cs" />
-    <Compile Include="MasterSchedule.cs" />
     <Compile Include="MasterTherapistList.cs" />
     <Compile Include="Nurse.cs" />
     <Compile Include="Patient.cs" />

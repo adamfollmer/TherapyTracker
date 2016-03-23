@@ -54,7 +54,7 @@ namespace UserInput
                         CheckIfNewPatient();
                         break;
                     case 4:
-                        userPatient.PatientMenu(SelectPatient(), this);
+                        userPatient.PatientMenu(SelectPatient(), program);
                         break;
                     case 5:
                         break;

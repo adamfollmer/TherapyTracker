@@ -11,14 +11,12 @@ namespace TherapyTracker
         public string name;
         public MasterPatientList patientList;
         public List<Schedule> masterSchedule = new List<Schedule>();
-        public MasterSchedule scheduleList;
         public MasterTherapistList therapistList;
-        public Director(string Name, MasterTherapistList TherapistList, MasterPatientList PatientList, MasterSchedule ScheduleList)
+        public Director(string Name, MasterTherapistList TherapistList, MasterPatientList PatientList)
         {
             name = Name;
             therapistList = TherapistList;
             patientList = PatientList;
-            scheduleList = ScheduleList;
         }
         public void UpdatePatientRUGLevel(Patient Patient, int Rug)
         {
@@ -59,7 +57,7 @@ namespace TherapyTracker
         }
         public bool CheckTimeConflict(Appointment ProposedAppointment)
         {
-            foreach (Schedule schedule in scheduleList.masterSchedule)
+            foreach (Schedule schedule in masterSchedule)
             {
                 foreach (Appointment appointment in schedule.therapistSchedule)
                 {
@@ -78,7 +76,7 @@ namespace TherapyTracker
         }
         public Appointment GetAppointmentFromID (int AppointmentID)
         {
-            foreach(Schedule schedule in scheduleList.masterSchedule)
+            foreach(Schedule schedule in masterSchedule)
             {
                 foreach(Appointment appointment in schedule.therapistSchedule)
                 {
@@ -93,7 +91,7 @@ namespace TherapyTracker
         }
         public void SwitchAppointments(int AppointmentID, Appointment NewAppointment)
         {
-            foreach (Schedule schedule in scheduleList.masterSchedule)
+            foreach (Schedule schedule in masterSchedule)
             {
                 foreach (Appointment appointment in schedule.therapistSchedule)
                 {
@@ -108,7 +106,7 @@ namespace TherapyTracker
         }
         public void PrintTherapistSchedules()
         {
-            foreach (Schedule schedule in scheduleList.masterSchedule)
+            foreach (Schedule schedule in masterSchedule)
             {
                 Console.WriteLine(schedule.therapist.name + "'s schedule:");
                 foreach (Appointment appointment in schedule.therapist.schedule.therapistSchedule)

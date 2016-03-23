@@ -133,11 +133,11 @@ namespace TherapyTracker
             occupationalTherapist.schedule.addAppointment(appointment9);
             occupationalTherapist.schedule.addAppointment(appointment10);
         }
-        public void AddToScheduleList (MasterSchedule ScheduleList)
+        public void AddToScheduleList (Director Director)
         {
-            ScheduleList.masterSchedule.Add(slpSchedule);
-            ScheduleList.masterSchedule.Add(otSchedule);
-            ScheduleList.masterSchedule.Add(ptSchedule);
+            Director.masterSchedule.Add(slpSchedule);
+            Director.masterSchedule.Add(otSchedule);
+            Director.masterSchedule.Add(ptSchedule);
         }
     }
 }
