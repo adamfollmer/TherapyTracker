@@ -11,11 +11,10 @@ namespace TherapyTracker
         public string name;
         public List<Schedule> masterSchedule = new List<Schedule>();
         public List<Patient> masterPatientList = new List<Patient>();
-        public MasterTherapistList therapistList;
-        public Director(string Name, MasterTherapistList TherapistList)
+        public List<Therapist> masterTherapistList = new List<Therapist>();
+        public Director(string Name)
         {
             name = Name;
-            therapistList = TherapistList;
         }
         public void UpdatePatientRUGLevel(Patient Patient, int Rug)
         {

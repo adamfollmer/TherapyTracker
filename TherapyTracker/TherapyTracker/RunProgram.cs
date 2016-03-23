@@ -8,22 +8,19 @@ namespace TherapyTracker
 {
     public class RunProgram
     {
-        public MasterTherapistList therapistList;
         public Director mainDirector; 
         public RunProgram()
         {
-            mainDirector = new Director("Director", therapistList);
-            therapistList = new MasterTherapistList();
+            mainDirector = new Director("Director");
         }
 
         public void PrePopulate()
         {
             Building buildingOne = new Building();
-            buildingOne.AddToTherapistList(therapistList);
+            buildingOne.AddToTherapistList(mainDirector);
             buildingOne.AddToPatientList(mainDirector);
             buildingOne.AddAppointmentsToSchedule();
             buildingOne.AddToScheduleList(mainDirector);
-
         }
         
     }

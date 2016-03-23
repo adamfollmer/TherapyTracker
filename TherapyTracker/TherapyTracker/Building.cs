@@ -103,11 +103,11 @@ namespace TherapyTracker
             ptSchedule = new Schedule(physicalTherapist);
             otSchedule = new Schedule(occupationalTherapist);
         }
-        public void AddToTherapistList(MasterTherapistList TherapistList)
+        public void AddToTherapistList(Director Director)
         {
-            TherapistList.AddTherapist(speechTherapist);
-            TherapistList.AddTherapist(physicalTherapist);
-            TherapistList.AddTherapist(occupationalTherapist);
+            Director.masterTherapistList.Add(speechTherapist);
+            Director.masterTherapistList.Add(physicalTherapist);
+            Director.masterTherapistList.Add(occupationalTherapist);
         }
         public void AddToPatientList (Director Director)
         {

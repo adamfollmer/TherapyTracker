@@ -67,7 +67,8 @@ namespace UserInput
         {
             Console.WriteLine("\nPlease enter the corresponding number to select a therapist\n");
             int i = 1;
-            foreach (TherapyTracker.Therapist therapist in program.therapistList.masterList)
+            
+            foreach (TherapyTracker.Therapist therapist in program.mainDirector.masterTherapistList)
             {
                 Console.WriteLine(i + ". " + therapist.name);
                 i++;
@@ -78,7 +79,7 @@ namespace UserInput
         {
             PrintTherapists();
             int userChoice = Convert.ToInt32(Console.ReadLine());
-            return (program.therapistList.masterList[userChoice - 1]);
+            return (program.mainDirector.masterTherapistList[userChoice - 1]);
         }
         public TherapyTracker.Patient SelectPatient()
         {
