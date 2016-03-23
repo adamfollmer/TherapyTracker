@@ -6,39 +6,42 @@ using System.Threading.Tasks;
 
 namespace UserInput
 {
-    public class Director : Therapist
+    public class Director
     {
-        UserInterface menu = new UserInterface();
         public void PrintMenuOptions()
         {
             Console.WriteLine("\n1. Set patient's RUG level");
             Console.WriteLine("2. Increase minutes for appointment");
-            Console.WriteLine("3. Reduce minutes for appointment\n");
+            Console.WriteLine("3. Reduce minutes for appointment");
+            Console.WriteLine("4. Print all Schedules\n");
         }
-        public void SelectMenu(TherapyTracker.RunProgram program)
+        public void SelectMenu(UserInterface Menu)
         {
             PrintMenuOptions();
             int userChoice = Convert.ToInt32(Console.ReadLine());
             switch (userChoice)
             {
                 case 1:
-                    SetRug(program);
+                    SetRug(Menu);
                     break;
                 case 2:
-                    IncreaseMinutes(program);
+                    IncreaseMinutes(Menu);
                     break;
                 case 3:
-                    DecreaseMinutes(program);
+                    DecreaseMinutes(Menu);
+                    break;
+                case 4:
+                    Menu.program.mainDirector.PrintTherapistSchedules();
                     break;
                 default:
                     break;
             }
         }
-        public void SetRug(TherapyTracker.RunProgram program)
+        public void SetRug(UserInterface Menu)
         {
-            TherapyTracker.Patient holdPatient = menu.SelectPatient();
+            TherapyTracker.Patient holdPatient = Menu.SelectPatient();
             int rugLevel = PrintRUGOptions();
-            program.mainDirector.UpdatePatientRUGLevel(holdPatient, rugLevel);
+            Menu.program.mainDirector.UpdatePatientRUGLevel(holdPatient, rugLevel);
             
         }
         public int PrintRUGOptions()
@@ -48,21 +51,26 @@ namespace UserInput
             int userInput = Convert.ToInt32(Console.ReadLine());
             return userInput;
         }
-        public void IncreaseMinutes(TherapyTracker.RunProgram program)
+        public void IncreaseMinutes(UserInterface Menu)
         {
-            TherapyTracker.Patient holdPatient = menu.SelectPatient();
-            TherapyTracker.Therapist holdTherapist = menu.SelectTherapist();
+            int appointmentID = GetAppointmentID();
             Console.WriteLine("How much more time is required?");
-            int timeIncrease = Convert.ToInt32(Console.ReadLine());
-            program.mainDirector.IncreasePatientTimeSeen(holdPatient, holdTherapist, timeIncrease);
+            double timeIncrease = Convert.ToDouble(Console.ReadLine());
+            Menu.program.mainDirector.IncreasePatientTimeSeen(appointmentID, timeIncrease);
         }
-        public void DecreaseMinutes(TherapyTracker.RunProgram program)
+        public void DecreaseMinutes(UserInterface Menu)
         {
-            TherapyTracker.Patient holdPatient = menu.SelectPatient();
-            TherapyTracker.Therapist holdTherapist = menu.SelectTherapist();
+            int appointmentID = GetAppointmentID();
             Console.WriteLine("How much less time would you like?");
-            int timeDecrease = Convert.ToInt32(Console.ReadLine());
-            program.mainDirector.DecreasePatientTimeSeen(holdPatient, holdTherapist, timeDecrease);
+            double timeDecrease = Convert.ToDouble(Console.ReadLine());
+            Menu.program.mainDirector.DecreasePatientTimeSeen(appointmentID, timeDecrease);
+        }
+        public int GetAppointmentID()
+        {
+            Console.WriteLine("Please enter a valid appointment ID");
+            int appointmentID;
+            appointmentID = Convert.ToInt32(Console.ReadLine());
+            return appointmentID;
         }
     }
 }

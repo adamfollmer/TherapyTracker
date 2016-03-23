@@ -29,7 +29,7 @@ namespace TherapyTracker
             double patientContactMinutes = 0;
             foreach (CompletedAppointment appointment in completedTherapistSchedule)
             {
-                patientContactMinutes += appointment.timeSeen;
+                patientContactMinutes += appointment.CalculateTimeSeen();
             }
             return patientContactMinutes;
         }

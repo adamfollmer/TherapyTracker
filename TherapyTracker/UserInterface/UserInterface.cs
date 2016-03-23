@@ -32,28 +32,35 @@ namespace UserInput
             Console.WriteLine("2. Director");
             Console.WriteLine("3. Nurse");
             Console.WriteLine("4. Patient\n");
-            MakeMenuSelection();
+            Console.WriteLine("5. Exit Program");
+
         }
         public void MakeMenuSelection()
         {
-            int userChoice = Convert.ToInt32(Console.ReadLine());
-            switch (userChoice)
+            int userChoice = 0;
+            while (userChoice != 5)
             {
-                case 1:
-                    userTherapist.MakeMenuSelection(SelectTherapist());
-                    break;
-                case 2:
-                    userDirector.SelectMenu(program);
-                    break;
-                case 3://should be done
-                    CheckIfNewPatient();
-                    break;
-                case 4://should be done
-                    userPatient.PatientMenu(SelectPatient(), program);
-                    break;
-                default:
-                    //return PrintMainMenu?
-                    break;
+                PrintMainMenu();
+                userChoice = Convert.ToInt32(Console.ReadLine());
+                switch (userChoice)
+                {
+                    case 1:
+                        userTherapist.MakeMenuSelection(SelectTherapist(), this);
+                        break;
+                    case 2:
+                        userDirector.SelectMenu(this);
+                        break;
+                    case 3:
+                        CheckIfNewPatient();
+                        break;
+                    case 4:
+                        userPatient.PatientMenu(SelectPatient(), this);
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         public void PrintTherapists()

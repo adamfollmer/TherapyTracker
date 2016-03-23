@@ -11,6 +11,7 @@ namespace TherapyTracker
         public void AddPatient(Patient Patient, MasterPatientList PatientList)
         {
             PatientList.AddPatient(Patient);
+            Console.WriteLine("\nNew patient " + Patient.name + " added to the system.\n");
         }
         public void RemovePatient(Patient Patient, MasterPatientList PatientList)
         {

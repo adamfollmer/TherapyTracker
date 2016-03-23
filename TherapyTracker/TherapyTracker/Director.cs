@@ -6,27 +6,120 @@ using System.Threading.Tasks;
 
 namespace TherapyTracker
 {
-    public class Director:Therapist
+    public class Director
     {
-        public Director(String Name, Discipline Discipline) :
-            base(Name, Discipline)
+        public string name;
+        public MasterPatientList patientList;
+        public List<Schedule> masterSchedule = new List<Schedule>();
+        public MasterSchedule scheduleList;
+        public MasterTherapistList therapistList;
+        public Director(string Name, MasterTherapistList TherapistList, MasterPatientList PatientList, MasterSchedule ScheduleList)
         {
-
+            name = Name;
+            therapistList = TherapistList;
+            patientList = PatientList;
+            scheduleList = ScheduleList;
         }
         public void UpdatePatientRUGLevel(Patient Patient, int Rug)
         {
             Patient.goalRUG = (Patient.ResourceUtilizationGroup)Rug;
         }
-        public void IncreasePatientTimeSeen(Patient Patient, Therapist Therapist, int IncreasedTime)//Will be difficult to verify that this is okay
+        public void IncreasePatientTimeSeen(int AppointmentID, double IncreasedTime)//Will be difficult to verify that this is okay
         {
-            //Ask which patient
-            //Ask which discipline to increase
-            //If it can push the schedule, do that
-            //If not, rearrange schedule to fit everything with no conflicts
+            if (GetAppointmentFromID(AppointmentID) != null)
+            {
+                Appointment holdAppointment = GetAppointmentFromID(AppointmentID);
+                holdAppointment.endTime.AddMinutes(IncreasedTime);
+                if (CheckTimeConflict(holdAppointment) == true)
+                {
+                    Console.WriteLine("There is a time conflict with this");
+                }
+                else
+                {
+                    SwitchAppointments(AppointmentID, holdAppointment);
+                }
+            }
+            //If not, rearrange schedule to fit everything with no conflicts - LOL YEAH RIGHT
         }
-        public void DecreasePatientTimeSeen(Patient Patient, Therapist Therapist, int DecreasedTime)
+        public void DecreasePatientTimeSeen(int AppointmentID, double IncreasedTime)
         {
+            if (GetAppointmentFromID(AppointmentID) != null)
+            {
+                Appointment holdAppointment = GetAppointmentFromID(AppointmentID);
+                holdAppointment.endTime.AddMinutes(-IncreasedTime);
+                if (CheckTimeConflict(holdAppointment) == true)
+                {
+                    Console.WriteLine("There is a time conflict with this");
+                }
+                else
+                {
+                    SwitchAppointments(AppointmentID, holdAppointment);
+                }
+            }
+        }
+        public bool CheckTimeConflict(Appointment ProposedAppointment)
+        {
+            foreach (Schedule schedule in scheduleList.masterSchedule)
+            {
+                foreach (Appointment appointment in schedule.therapistSchedule)
+                {
+                    if (appointment.patientIdentifier.uniqueID == ProposedAppointment.patientIdentifier.uniqueID)
+                    {
+                        if (appointment.endTime.Ticks >= ProposedAppointment.startTime.Ticks ||
+                             ProposedAppointment.endTime.Ticks >= appointment.startTime.Ticks)
+                        {
+                            return true;
+                        }
+                    }
 
+                }
+            }
+            return false;
         }
+        public Appointment GetAppointmentFromID (int AppointmentID)
+        {
+            foreach(Schedule schedule in scheduleList.masterSchedule)
+            {
+                foreach(Appointment appointment in schedule.therapistSchedule)
+                {
+                    if (appointment.appointmentID == AppointmentID)
+                    {
+                        return appointment;
+                    }
+                }
+            }
+            Console.WriteLine("Appointment not found, returning to main menu");
+            return null;
+        }
+        public void SwitchAppointments(int AppointmentID, Appointment NewAppointment)
+        {
+            foreach (Schedule schedule in scheduleList.masterSchedule)
+            {
+                foreach (Appointment appointment in schedule.therapistSchedule)
+                {
+                    if (appointment.appointmentID == AppointmentID)
+                    {
+                        schedule.therapistSchedule.Remove(appointment);
+                        schedule.therapistSchedule.Add(NewAppointment);
+                        break;
+                    }
+                }
+            }
+        }
+        public void PrintTherapistSchedules()
+        {
+            foreach (Schedule schedule in scheduleList.masterSchedule)
+            {
+                Console.WriteLine(schedule.therapist.name + "'s schedule:");
+                foreach (Appointment appointment in schedule.therapist.schedule.therapistSchedule)
+                {
+                    Console.WriteLine("ID: " + appointment.appointmentID);
+                    Console.WriteLine("Patient name: " + appointment.patientIdentifier.name);
+                    Console.WriteLine("From " + appointment.startTime + " to " + appointment.endTime);
+                    Console.WriteLine();
+                }
+            }
+        }
+
     }
 }

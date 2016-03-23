@@ -12,9 +12,10 @@ namespace TherapyTracker
         public Discipline discipline;
         public Schedule schedule;
         public CompletedSchedule completedSchedule;
-        public Time punchInPunchOut;
+        public DateTime punchIn = new DateTime(2016, 1, 1);
+        public DateTime punchOut = new DateTime(2016, 1, 1);
         Dictionary<DateTime, double> productivityLog = new Dictionary<DateTime, double>();
-        public bool punchStatus = false;//true = punched in, false = punched out
+        public bool punchStatus = false;
         public Therapist(string Name, Discipline Discipline)
         {
             name = Name;
@@ -22,7 +23,6 @@ namespace TherapyTracker
             completedSchedule = new CompletedSchedule(this);
             discipline = Discipline;
         }
-
         public enum Discipline
         {
             speechTherapist,
@@ -32,9 +32,12 @@ namespace TherapyTracker
         public void AddAppointment(Appointment Appointment)
         {
             schedule.addAppointment(Appointment);
+            Console.WriteLine("\nAn appointment has been added for " + Appointment.patientIdentifier.name);
+            Console.WriteLine("Starting at " + Appointment.startTime + " and ending at " + Appointment.endTime+ ".\n");
         }
         public void GetNewPatient() //By far the most complicated thing
         {
+            
             //Look at remaining schedule
             //Determine which patient is available by checking:
             //Patients preferences
@@ -44,27 +47,28 @@ namespace TherapyTracker
         {
             if (punchStatus == false)
             {
-                punchInPunchOut.startTime = DateTime.Now;
+                punchIn = DateTime.Now;
                 punchStatus = true;
+                Console.WriteLine("\nPunch IN accepted at " + punchIn.Hour + ":" + punchIn.Minute);
             } else
             {
-                punchInPunchOut.endTime = DateTime.Now;
+                punchOut = DateTime.Now;
                 AddProductivity();
                 punchStatus = false;
+                Console.WriteLine("\nPunch OUT accepted at " + punchOut.Hour + ":" + punchOut.Minute);
             }
         }
         public void ManualPunchIn(DateTime time)
         {
-            //Real time punch versus missed punch
-            //Take information if missed punch
-            punchInPunchOut.startTime = time;
-
+            punchIn = time;
+            punchStatus = true;
+            Console.WriteLine("\nPunch IN accepted at " + punchIn.Hour + ":" + punchIn.Minute);
         }
         public void ManualPunchOut(DateTime time)
         {
-            //Real time out punch versus missed punch
-            //Take information if missed punch
-            punchInPunchOut.endTime = time;
+            punchOut = time;
+            punchStatus = false;
+            Console.WriteLine("\nPunch OUT accepted at " + punchOut.Hour + ":" + punchOut.Minute);
             AddProductivity();
         }
         public void CheckProductivity(DateTime CheckDate)
@@ -78,23 +82,34 @@ namespace TherapyTracker
             {
                 Console.WriteLine("No productivity information logged for that day");
             }
-            
-            //Pull from dictionary based on date
         }
         public void AddProductivity()
         {
+            Time punchInPunchOut = new Time(punchIn, punchOut);
             double hoursWorked = punchInPunchOut.subtractTimeDifferenceMinutes();
             double patientContact = completedSchedule.calculatePatientContactMinutes();
             double productivity = (patientContact / hoursWorked) * 100;
-            productivityLog.Add(DateTime.Today.Date, productivity);
+            productivityLog.Add(punchIn.Date, productivity);
            
         }
-        public void CompleteAppointment()
+        public void AddCompleteAppointment(CompletedAppointment CompletedAppointment)
         {
-            //Ask which appointment this is in reference to.
-            //Ask Was the appointment completed as schedule
-            //If yes, transfer info from scheduled appointment to completed appointment
-            //If no, Take user input for time in, time end, and patient
+            completedSchedule.addCompletedAppointment(CompletedAppointment);
+            Console.WriteLine("\nAn appointment has been COMPLETED with " + CompletedAppointment.patientIdentifier.name);
+            Console.WriteLine("Starting at " + CompletedAppointment.startTime + " and ending at " + CompletedAppointment.endTime + ".\n");
+        }
+        public void PrintSchedule()
+        {
+            Console.WriteLine(name + "'s Schedule");
+            foreach (Appointment appointment in schedule.therapistSchedule)
+            {
+                Console.WriteLine();
+                Console.WriteLine(appointment.patientIdentifier.name);
+                Console.WriteLine(appointment.appointmentID);
+                Console.WriteLine("From " + appointment.startTime + " to " + appointment.endTime);
+                Console.WriteLine();
+            }
+            Console.ReadLine();
         }
     }
 }

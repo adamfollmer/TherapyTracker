@@ -12,7 +12,7 @@ namespace UserInput
         {
             UserInterface userInterface = new UserInterface();
             userInterface.PopulateBuilding();
-            userInterface.PrintMainMenu();
+            userInterface.MakeMenuSelection();
         }
     }
 }

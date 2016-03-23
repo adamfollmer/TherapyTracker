@@ -88,16 +88,16 @@ namespace TherapyTracker
             time9 = new Time(start9, end9);
             time10 = new Time(start10, end10);
 
-            appointment1 = new Appointment(start1, end1, one);
-            appointment2 = new Appointment(start2, end2, two);
-            appointment3 = new Appointment(start3, end3, three);
-            appointment4 = new Appointment(start4, end4, four);
-            appointment5 = new Appointment(start5, end5, five);
-            appointment6 = new Appointment(start6, end6, six);
-            appointment7 = new Appointment(start7, end7, seven);
-            appointment8 = new Appointment(start8, end8, eight);
-            appointment9 = new Appointment(start9, end9, seven);
-            appointment10 = new Appointment(start10, end10, eight);
+            appointment1 = new Appointment(start1, end1, one); 
+            appointment2 = new Appointment(start2, end2, two); 
+            appointment3 = new Appointment(start3, end3, three); 
+            appointment4 = new Appointment(start4, end4, four); 
+            appointment5 = new Appointment(start5, end5, five); 
+            appointment6 = new Appointment(start6, end6, six); 
+            appointment7 = new Appointment(start7, end7, seven); 
+            appointment8 = new Appointment(start8, end8, eight); 
+            appointment9 = new Appointment(start9, end9, seven); 
+            appointment10 = new Appointment(start10, end10, eight); 
 
             slpSchedule = new Schedule(speechTherapist);
             ptSchedule = new Schedule(physicalTherapist);
@@ -122,22 +122,22 @@ namespace TherapyTracker
         }
         public void AddAppointmentsToSchedule()
         {
-            slpSchedule.addAppointment(appointment1);
-            slpSchedule.addAppointment(appointment2);
-            slpSchedule.addAppointment(appointment3);
-            ptSchedule.addAppointment(appointment4);
-            ptSchedule.addAppointment(appointment5);
-            ptSchedule.addAppointment(appointment6);
-            ptSchedule.addAppointment(appointment7);
-            otSchedule.addAppointment(appointment8);
-            otSchedule.addAppointment(appointment9);
-            otSchedule.addAppointment(appointment10);
+            speechTherapist.schedule.addAppointment(appointment1);
+            speechTherapist.schedule.addAppointment(appointment2);
+            speechTherapist.schedule.addAppointment(appointment3);
+            physicalTherapist.schedule.addAppointment(appointment4);
+            physicalTherapist.schedule.addAppointment(appointment5);
+            physicalTherapist.schedule.addAppointment(appointment6);
+            physicalTherapist.schedule.addAppointment(appointment7);
+            occupationalTherapist.schedule.addAppointment(appointment8);
+            occupationalTherapist.schedule.addAppointment(appointment9);
+            occupationalTherapist.schedule.addAppointment(appointment10);
         }
         public void AddToScheduleList (MasterSchedule ScheduleList)
         {
-            ScheduleList.AddSchedule(slpSchedule);
-            ScheduleList.AddSchedule(ptSchedule);
-            ScheduleList.AddSchedule(otSchedule);
+            ScheduleList.masterSchedule.Add(slpSchedule);
+            ScheduleList.masterSchedule.Add(otSchedule);
+            ScheduleList.masterSchedule.Add(ptSchedule);
         }
     }
 }

@@ -11,16 +11,18 @@ namespace TherapyTracker
         //because the parent class is a theoretical/scheduled object
         //Whereas this is used only when an appointment is completed.
     {
-        public double timeSeen;
         public CompletedAppointment (DateTime Start, DateTime End, Patient Patient)
             : base(Start,End, Patient)
         {
-             timeSeen = subtractTimeDifferenceMinutes();
-            //Is the above kosher or should I make a function to do the math?
         }
-        public void AddMinutesToPatient()
+        public void AddMinutesToPatient(double TimeSeen)
         {
-            patientIdentifier.minutesTowardRUG += timeSeen;
+            patientIdentifier.minutesTowardRUG += TimeSeen;
+        }
+        public double CalculateTimeSeen()
+        {
+            double timeSeen = subtractTimeDifferenceMinutes();
+            return timeSeen;
         }
     }
 }

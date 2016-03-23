@@ -17,7 +17,6 @@ namespace TherapyTracker
             therapistList = new MasterTherapistList();
             patientList = new MasterPatientList();
             scheduleList = new MasterSchedule();
-            mainDirector = new Director("Steve", Therapist.Discipline.occupationalTherapist);
         }
 
         public void PrePopulate()
@@ -27,6 +26,7 @@ namespace TherapyTracker
             buildingOne.AddToPatientList(patientList);
             buildingOne.AddAppointmentsToSchedule();
             buildingOne.AddToScheduleList(scheduleList);
+            mainDirector = new Director("Director", therapistList, patientList, scheduleList);
         }
         
     }

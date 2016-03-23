@@ -8,13 +8,19 @@ namespace TherapyTracker
 {
     public class Appointment:Time
     {
+        public Random random = new Random(Guid.NewGuid().GetHashCode());
+        public int appointmentID;
         public Patient patientIdentifier;
-        //Considering a static variable to function as a counter to provide a unique ID
-        //May do the same for patients?
         public Appointment(DateTime Start, DateTime End, Patient Patient)
             : base(Start, End)
         {
             patientIdentifier = Patient;
+            appointmentID = GenerateRandomID();
+        }
+
+        private int GenerateRandomID()
+        {
+            return random.Next(1000, 9999);
         }
     }
 }
