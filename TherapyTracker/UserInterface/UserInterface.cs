@@ -85,9 +85,9 @@ namespace UserInput
             Console.WriteLine("\nPlease enter the patient unique identifier\n");
             int userChoice = Convert.ToInt32(Console.ReadLine());
             int patientCount = 0;
-            foreach (TherapyTracker.Patient patient in program.patientList.masterPatientList)
-            {
-                if (userChoice == program.patientList.masterPatientList[patientCount].uniqueID)
+            foreach (TherapyTracker.Patient patient in program.mainDirector.masterPatientList)
+            { 
+                if (userChoice == program.mainDirector.masterPatientList[patientCount].uniqueID)
                 {
                     return patient;
                 }
@@ -103,7 +103,7 @@ namespace UserInput
             int userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
-                userNurse.GetNewPatientInformation(program);
+                userNurse.GetNewPatientInformation(program.mainDirector);
             }
             else
             {

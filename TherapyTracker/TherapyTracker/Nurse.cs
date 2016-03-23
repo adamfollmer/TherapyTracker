@@ -8,14 +8,14 @@ namespace TherapyTracker
 {
     public class Nurse
     {
-        public void AddPatient(Patient Patient, MasterPatientList PatientList)
+        public void AddPatient(Patient Patient, Director Director)
         {
-            PatientList.AddPatient(Patient);
+            Director.masterPatientList.Add(Patient);
             Console.WriteLine("\nNew patient " + Patient.name + " added to the system.\n");
         }
-        public void RemovePatient(Patient Patient, MasterPatientList PatientList)
+        public void RemovePatient(Patient Patient, Director Director)
         {
-            PatientList.RemovePatient(Patient);
+            Director.masterPatientList.Remove(Patient);
         }
         public void AddPatientPrefrences(Patient Patient, PatientTimeConflicts Conflict)
         {

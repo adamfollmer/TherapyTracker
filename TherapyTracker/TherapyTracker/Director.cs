@@ -9,14 +9,13 @@ namespace TherapyTracker
     public class Director
     {
         public string name;
-        public MasterPatientList patientList;
         public List<Schedule> masterSchedule = new List<Schedule>();
+        public List<Patient> masterPatientList = new List<Patient>();
         public MasterTherapistList therapistList;
-        public Director(string Name, MasterTherapistList TherapistList, MasterPatientList PatientList)
+        public Director(string Name, MasterTherapistList TherapistList)
         {
             name = Name;
             therapistList = TherapistList;
-            patientList = PatientList;
         }
         public void UpdatePatientRUGLevel(Patient Patient, int Rug)
         {

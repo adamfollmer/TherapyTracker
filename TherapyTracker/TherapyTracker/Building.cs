@@ -109,16 +109,16 @@ namespace TherapyTracker
             TherapistList.AddTherapist(physicalTherapist);
             TherapistList.AddTherapist(occupationalTherapist);
         }
-        public void AddToPatientList (MasterPatientList PatientList)
+        public void AddToPatientList (Director Director)
         {
-            PatientList.AddPatient(one);
-            PatientList.AddPatient(two);
-            PatientList.AddPatient(three);
-            PatientList.AddPatient(four);
-            PatientList.AddPatient(five);
-            PatientList.AddPatient(six);
-            PatientList.AddPatient(seven);
-            PatientList.AddPatient(eight);
+            Director.masterPatientList.Add(one);
+            Director.masterPatientList.Add(two);
+            Director.masterPatientList.Add(three);
+            Director.masterPatientList.Add(four);
+            Director.masterPatientList.Add(five);
+            Director.masterPatientList.Add(six);
+            Director.masterPatientList.Add(seven);
+            Director.masterPatientList.Add(eight);
         }
         public void AddAppointmentsToSchedule()
         {

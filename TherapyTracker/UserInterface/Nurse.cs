@@ -23,7 +23,7 @@ namespace UserInput
             switch (userChoice)
             {
                 case 1:
-                    ratchet.RemovePatient(Patient, Program.patientList);
+                    ratchet.RemovePatient(Patient, Program.mainDirector);
                     break;
                 case 2:
                     ratchet.AddPatientPrefrences(Patient, GetTimeForPatientPreferenceAdd());
@@ -63,14 +63,14 @@ namespace UserInput
             int userInput =  Convert.ToInt32(Console.ReadLine());
             return userInput;
         } 
-        public void GetNewPatientInformation(TherapyTracker.RunProgram Program)
+        public void GetNewPatientInformation(TherapyTracker.Director Director)
         {
             Console.WriteLine("What is the Patient's Name?");
             string newPatientName = Convert.ToString(Console.ReadLine());
             Console.WriteLine("Provide a unique numerical identifier for the patient.");
             int newPatientID = Convert.ToInt32(Console.ReadLine());
             TherapyTracker.Patient newPatient = new TherapyTracker.Patient(newPatientName, newPatientID);
-            ratchet.AddPatient(newPatient, Program.patientList);
+            ratchet.AddPatient(newPatient, Director);
         }
     }
 }
