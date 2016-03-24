@@ -25,7 +25,7 @@ namespace UserInput
             Console.WriteLine("7. View completed schedule.\n");
             Console.WriteLine("8. Return to Main Menu");
         }
-        public void MakeMenuSelection(TherapyTracker.Therapist Therapist, UserInterface Menu)
+        public void MakeMenuSelection(TherapyTracker.Therapist Therapist, MainMenu Menu)
         {
             int userChoice = 0;
             while (userChoice != 8)
@@ -87,7 +87,7 @@ namespace UserInput
                 Therapist.ManualPunchIn(punch);
             }
         }
-        public void AddAppointment(TherapyTracker.Therapist Therapist, UserInterface Menu)
+        public void AddAppointment(TherapyTracker.Therapist Therapist, MainMenu Menu)
         {
             TherapyTracker.Patient holdPatient = Menu.SelectPatient();
             DateTime startTime = GetStartTime();
@@ -115,44 +115,49 @@ namespace UserInput
             Therapist.CheckProductivity(checkDate.Date);
 
         }
-        public void CompleteAppointment(TherapyTracker.Therapist Therapist, UserInterface Menu)
+        public void CompleteAppointment(TherapyTracker.Therapist Therapist, MainMenu Menu)
         {
-            TherapyTracker.Patient holdPatient = Menu.SelectPatient();
+            TherapyTracker.Appointment appointmentToComplete = GetAppointment(Therapist);
             Console.WriteLine("\nDid you complete the session as originally scheduled?");
             Console.WriteLine("(1)Yes or (2)No\n");
             int userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
-                TherapyTracker.CompletedAppointment completed = PullOriginalAppointmentTime(Therapist, holdPatient);
+                TherapyTracker.CompletedAppointment completed = TransferScheduledAppointmentToCompletedAppointment(appointmentToComplete);
                 Therapist.AddCompleteAppointment(completed);
             }
             else
             {
-                TherapyTracker.CompletedAppointment completed = GetCompletedAppointmentTime(holdPatient);
+                TherapyTracker.CompletedAppointment completed = GetCompletedAppointmentTime(appointmentToComplete);
                 Therapist.AddCompleteAppointment(completed);
             }
         }
-        public TherapyTracker.CompletedAppointment PullOriginalAppointmentTime(TherapyTracker.Therapist Therapist, TherapyTracker.Patient Patient)
+        public TherapyTracker.CompletedAppointment TransferScheduledAppointmentToCompletedAppointment(TherapyTracker.Appointment Appointment)
         {
-            foreach (TherapyTracker.Appointment appointment in Therapist.schedule)
-            {
-                if (appointment.patientIdentifier.uniqueID == Patient.uniqueID)
-                {
-                    DateTime startTime = appointment.startTime;
-                    DateTime endTime = appointment.endTime;
-                    TherapyTracker.CompletedAppointment completedAppointment = new TherapyTracker.CompletedAppointment(startTime, endTime, Patient);
-                    return completedAppointment;
-                }
-            }
-            Console.WriteLine("No appointments match this therapist and patient.");
-            return null;
-        }
-        public TherapyTracker.CompletedAppointment GetCompletedAppointmentTime(TherapyTracker.Patient Patient)
-        {
-            DateTime startTime = GetStartTime();
-            DateTime endTime = GetEndTime(startTime);
-            TherapyTracker.CompletedAppointment completedAppointment = new TherapyTracker.CompletedAppointment(startTime, endTime, Patient);
+            TherapyTracker.CompletedAppointment completedAppointment = new TherapyTracker.CompletedAppointment(Appointment.startTime, Appointment.endTime, Appointment.patientIdentifier);
+            completedAppointment.appointmentID = Appointment.appointmentID;
             return completedAppointment;
         }
+        public TherapyTracker.CompletedAppointment GetCompletedAppointmentTime(TherapyTracker.Appointment Appointment)
+        {
+            TherapyTracker.CompletedAppointment completedAppointment = TransferScheduledAppointmentToCompletedAppointment(Appointment);
+            completedAppointment.startTime = GetStartTime();
+            completedAppointment.endTime = GetEndTime(completedAppointment.startTime);
+            return completedAppointment;
+        }
+        public TherapyTracker.Appointment GetAppointment(TherapyTracker.Therapist Therapist)
+        {
+            Console.WriteLine("Please enter in the appointment ID:");
+            int userInput = Convert.ToInt32(Console.ReadLine());
+            foreach (Appointment appointment in Therapist.schedule)
+            {
+                if (userInput == appointment.appointmentID)
+                {
+                    return appointment;
+                }
+            }
+            return null;
+        }
     }
+
 }

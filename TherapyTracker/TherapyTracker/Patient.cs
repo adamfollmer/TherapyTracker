@@ -67,7 +67,8 @@ namespace TherapyTracker
                 {
                     if (appointment.patientIdentifier.uniqueID == this.uniqueID)
                     {
-                        Console.WriteLine("You have therapy at " + appointment.startTime);
+                        Console.WriteLine("You have " + therapist.discipline + " therapy" + " at ");
+                        Console.Write(appointment.startTime + " with " + therapist.name + ".");
                     }
                 }
             }

@@ -10,9 +10,9 @@ namespace TherapyTracker
     public class Building
     {
         //Creating Staff
-        public Therapist speechTherapist = new Therapist("John", Therapist.Discipline.speechTherapist);
-        public Therapist physicalTherapist = new Therapist("Bob", Therapist.Discipline.physicalTherapist);
-        public Therapist occupationalTherapist = new Therapist("Roger", Therapist.Discipline.occupationalTherapist);
+        public Therapist speechTherapist = new Therapist("John", Therapist.Discipline.Speech);
+        public Therapist physicalTherapist = new Therapist("Bob", Therapist.Discipline.Physical);
+        public Therapist occupationalTherapist = new Therapist("Roger", Therapist.Discipline.Occupational);
 
         //Creating Patients
         public Patient one = new Patient("Mary", 1234);

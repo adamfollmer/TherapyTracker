@@ -15,9 +15,10 @@ namespace TherapyTracker
             : base(Start,End, Patient)
         {
         }
-        public void AddMinutesToPatient(double TimeSeen)
+        public void AddMinutesToPatient()
         {
-            patientIdentifier.minutesTowardRUG += TimeSeen;
+            double timeSeen = CalculateTimeSeen();
+            patientIdentifier.minutesTowardRUG += timeSeen;
         }
         public double CalculateTimeSeen()
         {

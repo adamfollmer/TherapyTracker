@@ -14,7 +14,7 @@ namespace TherapyTracker
         public List<CompletedAppointment> completedSchedule;
         public DateTime punchIn = new DateTime(2016, 1, 1);
         public DateTime punchOut = new DateTime(2016, 1, 1);
-        Dictionary<DateTime, double> productivityLog = new Dictionary<DateTime, double>();
+        public Dictionary<DateTime, double> productivityLog = new Dictionary<DateTime, double>();
         public bool punchStatus = false;
 
         public Therapist(string Name, Discipline Discipline)
@@ -26,9 +26,9 @@ namespace TherapyTracker
         }
         public enum Discipline
         {
-            speechTherapist,
-            physicalTherapist,
-            occupationalTherapist,
+            Speech,
+            Physical,
+            Occupational,
         }
         public void AddAppointment(Appointment Appointment)
         {
@@ -50,27 +50,27 @@ namespace TherapyTracker
             {
                 punchIn = DateTime.Now;
                 punchStatus = true;
-                Console.WriteLine("\nPunch IN accepted at " + punchIn.Hour + ":" + punchIn.Minute);
+                Console.WriteLine("\nPunch IN accepted at " + punchIn.ToShortTimeString());
             }
             else
             {
                 punchOut = DateTime.Now;
                 AddProductivity();
                 punchStatus = false;
-                Console.WriteLine("\nPunch OUT accepted at " + punchOut.Hour + ":" + punchOut.Minute);
+                Console.WriteLine("\nPunch OUT accepted at " + punchOut.ToShortTimeString());
             }
         }
         public void ManualPunchIn(DateTime time)
         {
             punchIn = time;
             punchStatus = true;
-            Console.WriteLine("\nPunch IN accepted at " + punchIn.Hour + ":" + punchIn.Minute);
+            Console.WriteLine("\nPunch IN accepted at " + punchIn.ToShortTimeString());
         }
         public void ManualPunchOut(DateTime time)
         {
             punchOut = time;
             punchStatus = false;
-            Console.WriteLine("\nPunch OUT accepted at " + punchOut.Hour + ":" + punchOut.Minute);
+            Console.WriteLine("\nPunch OUT accepted at " + punchOut.ToShortTimeString());
             AddProductivity();
         }
         public void CheckProductivity(DateTime CheckDate)
@@ -107,8 +107,11 @@ namespace TherapyTracker
         public void AddCompleteAppointment(CompletedAppointment CompletedAppointment)
         {
             completedSchedule.Add(CompletedAppointment);
+            CompletedAppointment.AddMinutesToPatient();
+            CompletedAppointment.patientIdentifier.DetermineRUG();
             Console.WriteLine("\nAn appointment has been COMPLETED with " + CompletedAppointment.patientIdentifier.name);
             Console.WriteLine("Starting at " + CompletedAppointment.startTime + " and ending at " + CompletedAppointment.endTime + ".\n");
+            RemovePreviousAppointment(CompletedAppointment);
         }
         public void PrintSchedule()
         {
@@ -132,6 +135,17 @@ namespace TherapyTracker
                 Console.WriteLine("Was seen from " + appointment.startTime + " to " + appointment.endTime);
             }
             Console.WriteLine();
+        }
+        public void RemovePreviousAppointment(CompletedAppointment Appointment)
+        {
+            foreach (Appointment appointment in schedule)
+            {
+                if (appointment.appointmentID == Appointment.appointmentID)
+                {
+                    schedule.Remove(appointment);
+                    break;
+                }
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace UserInput
     {
         static void Main(string[] args)
         {
-            UserInterface userInterface = new UserInterface();
+            MainMenu userInterface = new MainMenu();
             userInterface.PopulateBuilding();
             userInterface.MakeMenuSelection();
         }

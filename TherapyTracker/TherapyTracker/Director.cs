@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+
 
 namespace TherapyTracker
 {
@@ -105,7 +107,7 @@ namespace TherapyTracker
         {
             foreach (Therapist therapist in masterTherapistList)
             {
-                //Console.WriteLine(therapistSchedule.therapist.name + "'s schedule:");
+                Console.WriteLine(therapist.name + "'s schedule:");
                 foreach (Appointment appointment in therapist.schedule)
                 {
                     Console.WriteLine("ID: " + appointment.appointmentID);
@@ -114,6 +116,21 @@ namespace TherapyTracker
                     Console.WriteLine();
                 }
             }
+        }
+        public void PrintPatientList()
+        {
+            foreach (Patient patient in masterPatientList)
+            {
+                Console.WriteLine("Name: " + patient.name + " ID: " + patient.uniqueID);
+                Console.WriteLine("Goal RUG: " + patient.goalRUG + " Current RUG: " + patient.currentRUG + " Current Minutes: " + patient.minutesTowardRUG);
+                Console.WriteLine("Current conflicts: ");
+                patient.printTimeConflicts();
+                Console.WriteLine();
+            }
+        }
+        public void Export()
+        {
+            
         }
     }
 }

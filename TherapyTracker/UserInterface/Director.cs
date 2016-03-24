@@ -13,13 +13,14 @@ namespace UserInput
             Console.WriteLine("\n1. Set patient's RUG level");
             Console.WriteLine("2. Increase minutes for appointment");
             Console.WriteLine("3. Reduce minutes for appointment");
-            Console.WriteLine("4. View all Schedules\n");
-            Console.WriteLine("5. Return to Main Menu");
+            Console.WriteLine("4. View all Schedules");
+            Console.WriteLine("5. View all Patient Information\n");
+            Console.WriteLine("6. Return to Main Menu");
         }
-        public void SelectMenu(UserInterface Menu)
+        public void SelectMenu(MainMenu Menu)
         {
             int userChoice = 0;
-            while (userChoice != 5)
+            while (userChoice != 6)
             {
                 PrintMenuOptions();
                 userChoice = Convert.ToInt32(Console.ReadLine());
@@ -37,12 +38,15 @@ namespace UserInput
                     case 4:
                         Menu.program.mainDirector.PrintTherapistSchedules();
                         break;
+                    case 5:
+                        Menu.program.mainDirector.PrintPatientList();
+                        break;
                     default:
                         break;
                 }
             }
         }
-        public void SetRug(UserInterface Menu)
+        public void SetRug(MainMenu Menu)
         {
             TherapyTracker.Patient holdPatient = Menu.SelectPatient();
             int rugLevel = PrintRUGOptions();
@@ -56,14 +60,14 @@ namespace UserInput
             int userInput = Convert.ToInt32(Console.ReadLine());
             return userInput;
         }
-        public void IncreaseMinutes(UserInterface Menu)
+        public void IncreaseMinutes(MainMenu Menu)
         {
             int appointmentID = GetAppointmentID();
             Console.WriteLine("How much more time is required?");
             double timeIncrease = Convert.ToDouble(Console.ReadLine());
             Menu.program.mainDirector.IncreasePatientTimeSeen(appointmentID, timeIncrease);
         }
-        public void DecreaseMinutes(UserInterface Menu)
+        public void DecreaseMinutes(MainMenu Menu)
         {
             int appointmentID = GetAppointmentID();
             Console.WriteLine("How much less time would you like?");

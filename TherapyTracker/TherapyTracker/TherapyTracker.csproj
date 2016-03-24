@@ -44,8 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appointment.cs" />
+    <Compile Include="Book.cs" />
     <Compile Include="CompletedAppointment.cs" />
-    <Compile Include="CompletedSchedule.cs" />
     <Compile Include="Director.cs" />
     <Compile Include="Nurse.cs" />
     <Compile Include="Patient.cs" />
