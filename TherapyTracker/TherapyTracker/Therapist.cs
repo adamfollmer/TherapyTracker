@@ -10,7 +10,8 @@ namespace TherapyTracker
     {
         public string name;
         public Discipline discipline;
-        public Schedule schedule;
+        //public Schedule schedule;
+        public List<Appointment> schedule;
         public CompletedSchedule completedSchedule;
         public DateTime punchIn = new DateTime(2016, 1, 1);
         public DateTime punchOut = new DateTime(2016, 1, 1);
@@ -19,7 +20,7 @@ namespace TherapyTracker
         public Therapist(string Name, Discipline Discipline)
         {
             name = Name;
-            schedule = new Schedule(this);
+            schedule = new List<Appointment>();
             completedSchedule = new CompletedSchedule(this);
             discipline = Discipline;
         }
@@ -31,7 +32,7 @@ namespace TherapyTracker
         }
         public void AddAppointment(Appointment Appointment)
         {
-            schedule.addAppointment(Appointment);
+            schedule.Add(Appointment);
             Console.WriteLine("\nAn appointment has been added for " + Appointment.patientIdentifier.name);
             Console.WriteLine("Starting at " + Appointment.startTime + " and ending at " + Appointment.endTime+ ".\n");
         }
@@ -101,7 +102,7 @@ namespace TherapyTracker
         public void PrintSchedule()
         {
             Console.WriteLine(name + "'s Schedule");
-            foreach (Appointment appointment in schedule.therapistSchedule)
+            foreach (Appointment appointment in schedule)
             {
                 Console.WriteLine();
                 Console.WriteLine(appointment.patientIdentifier.name);

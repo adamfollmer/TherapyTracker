@@ -61,9 +61,9 @@ namespace TherapyTracker
         }
         public void CheckTherapyTime(Director Director)
         {
-            foreach (Schedule schedule in Director.masterSchedule)
+            foreach (List<Appointment> therapistSchedule in Director.masterSchedule)
             {
-                foreach (Appointment appointment in schedule.therapistSchedule)
+                foreach (Appointment appointment in therapistSchedule)
                 {
                     if (appointment.patientIdentifier.uniqueID == this.uniqueID)
                     {

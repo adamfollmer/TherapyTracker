@@ -70,10 +70,10 @@ namespace TherapyTracker
         public Appointment appointment9;
         public Appointment appointment10;
 
-        //Creating Therapist's Schedules
-        public Schedule slpSchedule;
-        public Schedule ptSchedule;
-        public Schedule otSchedule;
+        ////Creating Therapist's Schedules
+        //public Schedule slpSchedule;
+        //public Schedule ptSchedule;
+        //public Schedule otSchedule;
 
         public Building()
         {
@@ -98,10 +98,6 @@ namespace TherapyTracker
             appointment8 = new Appointment(start8, end8, eight); 
             appointment9 = new Appointment(start9, end9, seven); 
             appointment10 = new Appointment(start10, end10, eight); 
-
-            slpSchedule = new Schedule(speechTherapist);
-            ptSchedule = new Schedule(physicalTherapist);
-            otSchedule = new Schedule(occupationalTherapist);
         }
         public void AddToTherapistList(Director Director)
         {
@@ -122,22 +118,22 @@ namespace TherapyTracker
         }
         public void AddAppointmentsToSchedule()
         {
-            speechTherapist.schedule.addAppointment(appointment1);
-            speechTherapist.schedule.addAppointment(appointment2);
-            speechTherapist.schedule.addAppointment(appointment3);
-            physicalTherapist.schedule.addAppointment(appointment4);
-            physicalTherapist.schedule.addAppointment(appointment5);
-            physicalTherapist.schedule.addAppointment(appointment6);
-            physicalTherapist.schedule.addAppointment(appointment7);
-            occupationalTherapist.schedule.addAppointment(appointment8);
-            occupationalTherapist.schedule.addAppointment(appointment9);
-            occupationalTherapist.schedule.addAppointment(appointment10);
+            speechTherapist.schedule.Add(appointment1);
+            speechTherapist.schedule.Add(appointment2);
+            speechTherapist.schedule.Add(appointment3);
+            physicalTherapist.schedule.Add(appointment4);
+            physicalTherapist.schedule.Add(appointment5);
+            physicalTherapist.schedule.Add(appointment6);
+            physicalTherapist.schedule.Add(appointment7);
+            occupationalTherapist.schedule.Add(appointment8);
+            occupationalTherapist.schedule.Add(appointment9);
+            occupationalTherapist.schedule.Add(appointment10);
         }
-        public void AddToScheduleList (Director Director)
+        public void AddToScheduleList(Director Director)
         {
-            Director.masterSchedule.Add(slpSchedule);
-            Director.masterSchedule.Add(otSchedule);
-            Director.masterSchedule.Add(ptSchedule);
+            Director.masterSchedule.Add(speechTherapist.schedule);
+            Director.masterSchedule.Add(occupationalTherapist.schedule);
+            Director.masterSchedule.Add(physicalTherapist.schedule);
         }
     }
 }

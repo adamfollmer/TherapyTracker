@@ -134,7 +134,7 @@ namespace UserInput
         }
         public TherapyTracker.CompletedAppointment PullOriginalAppointmentTime(TherapyTracker.Therapist Therapist, TherapyTracker.Patient Patient)
         {
-            foreach (TherapyTracker.Appointment appointment in Therapist.schedule.therapistSchedule)
+            foreach (TherapyTracker.Appointment appointment in Therapist.schedule)
             {
                 if (appointment.patientIdentifier.uniqueID == Patient.uniqueID)
                 {
