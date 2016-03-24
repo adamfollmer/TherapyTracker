@@ -10,18 +10,18 @@ namespace TherapyTracker
     {
         public string name;
         public Discipline discipline;
-        //public Schedule schedule;
         public List<Appointment> schedule;
-        public CompletedSchedule completedSchedule;
+        public List<CompletedAppointment> completedSchedule;
         public DateTime punchIn = new DateTime(2016, 1, 1);
         public DateTime punchOut = new DateTime(2016, 1, 1);
         Dictionary<DateTime, double> productivityLog = new Dictionary<DateTime, double>();
         public bool punchStatus = false;
+
         public Therapist(string Name, Discipline Discipline)
         {
             name = Name;
             schedule = new List<Appointment>();
-            completedSchedule = new CompletedSchedule(this);
+            completedSchedule = new List<CompletedAppointment>();
             discipline = Discipline;
         }
         public enum Discipline
@@ -34,11 +34,11 @@ namespace TherapyTracker
         {
             schedule.Add(Appointment);
             Console.WriteLine("\nAn appointment has been added for " + Appointment.patientIdentifier.name);
-            Console.WriteLine("Starting at " + Appointment.startTime + " and ending at " + Appointment.endTime+ ".\n");
+            Console.WriteLine("Starting at " + Appointment.startTime + " and ending at " + Appointment.endTime + ".\n");
         }
         //public void GetNewPatient() //By far the most complicated thing
         //{WILL LIKELY LEAVE OUT FOR NOW
-            
+
         //    //Look at remaining schedule
         //    //Determine which patient is available by checking:
         //    //Patients preferences
@@ -51,7 +51,8 @@ namespace TherapyTracker
                 punchIn = DateTime.Now;
                 punchStatus = true;
                 Console.WriteLine("\nPunch IN accepted at " + punchIn.Hour + ":" + punchIn.Minute);
-            } else
+            }
+            else
             {
                 punchOut = DateTime.Now;
                 AddProductivity();
@@ -88,14 +89,24 @@ namespace TherapyTracker
         {
             Time punchInPunchOut = new Time(punchIn, punchOut);
             double hoursWorked = punchInPunchOut.subtractTimeDifferenceMinutes();
-            double patientContact = completedSchedule.calculatePatientContactMinutes();
+            double patientContact = CalculatePatientContactMinutes();
             double productivity = (patientContact / hoursWorked) * 100;
             productivityLog.Add(punchIn.Date, productivity);
-           
+
+        }
+        public double CalculatePatientContactMinutes()
+        {
+            double patientContactMinutes = 0;
+            foreach (CompletedAppointment appointment in completedSchedule)
+            {
+                patientContactMinutes += appointment.CalculateTimeSeen();
+            }
+            return patientContactMinutes;
+
         }
         public void AddCompleteAppointment(CompletedAppointment CompletedAppointment)
         {
-            completedSchedule.addCompletedAppointment(CompletedAppointment);
+            completedSchedule.Add(CompletedAppointment);
             Console.WriteLine("\nAn appointment has been COMPLETED with " + CompletedAppointment.patientIdentifier.name);
             Console.WriteLine("Starting at " + CompletedAppointment.startTime + " and ending at " + CompletedAppointment.endTime + ".\n");
         }
@@ -114,7 +125,7 @@ namespace TherapyTracker
         public void PrintCompletedSchedule()
         {
             Console.WriteLine(name + "'s Completed Schedule");
-            foreach (CompletedAppointment appointment in completedSchedule.completedTherapistSchedule)
+            foreach (CompletedAppointment appointment in completedSchedule)
             {
                 Console.WriteLine();
                 Console.WriteLine(appointment.patientIdentifier.name);

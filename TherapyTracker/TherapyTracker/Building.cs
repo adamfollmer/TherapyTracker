@@ -70,11 +70,6 @@ namespace TherapyTracker
         public Appointment appointment9;
         public Appointment appointment10;
 
-        ////Creating Therapist's Schedules
-        //public Schedule slpSchedule;
-        //public Schedule ptSchedule;
-        //public Schedule otSchedule;
-
         public Building()
         {
             time1 = new Time(start1, end1);
@@ -128,12 +123,6 @@ namespace TherapyTracker
             occupationalTherapist.schedule.Add(appointment8);
             occupationalTherapist.schedule.Add(appointment9);
             occupationalTherapist.schedule.Add(appointment10);
-        }
-        public void AddToScheduleList(Director Director)
-        {
-            Director.masterSchedule.Add(speechTherapist.schedule);
-            Director.masterSchedule.Add(occupationalTherapist.schedule);
-            Director.masterSchedule.Add(physicalTherapist.schedule);
         }
     }
 }

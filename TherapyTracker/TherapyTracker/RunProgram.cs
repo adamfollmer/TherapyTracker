@@ -19,7 +19,6 @@ namespace TherapyTracker
             buildingOne.AddToTherapistList(mainDirector);
             buildingOne.AddToPatientList(mainDirector);
             buildingOne.AddAppointmentsToSchedule();
-            buildingOne.AddToScheduleList(mainDirector);
         }
         
     }

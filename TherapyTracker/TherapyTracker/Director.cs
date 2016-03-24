@@ -9,7 +9,6 @@ namespace TherapyTracker
     public class Director
     {
         public string name;
-        public List<List<Appointment>> masterSchedule = new List<List<Appointment>>();
         public List<Patient> masterPatientList = new List<Patient>();
         public List<Therapist> masterTherapistList = new List<Therapist>();
         public Director(string Name)
@@ -55,9 +54,9 @@ namespace TherapyTracker
         }
         public bool CheckTimeConflict(Appointment ProposedAppointment)
         {
-            foreach (List<Appointment> therapistSchedule in masterSchedule)
+            foreach (Therapist therapist in masterTherapistList)
             {
-                foreach (Appointment appointment in therapistSchedule)
+                foreach (Appointment appointment in therapist.schedule)
                 {
                     if (appointment.patientIdentifier.uniqueID == ProposedAppointment.patientIdentifier.uniqueID)
                     {
@@ -74,9 +73,9 @@ namespace TherapyTracker
         }
         public Appointment GetAppointmentFromID (int AppointmentID)
         {
-            foreach(List<Appointment> therapistSchedule in masterSchedule)
+            foreach(Therapist therapist in masterTherapistList)
             {
-                foreach(Appointment appointment in therapistSchedule)
+                foreach(Appointment appointment in therapist.schedule)
                 {
                     if (appointment.appointmentID == AppointmentID)
                     {
@@ -89,14 +88,14 @@ namespace TherapyTracker
         }
         public void SwitchAppointments(int AppointmentID, Appointment NewAppointment)
         {
-            foreach (List<Appointment> therapistSchedule in masterSchedule)
+            foreach (Therapist therapist in masterTherapistList)
             {
-                foreach (Appointment appointment in therapistSchedule)
+                foreach (Appointment appointment in therapist.schedule)
                 {
                     if (appointment.appointmentID == AppointmentID)
                     {
-                        therapistSchedule.Remove(appointment);
-                        therapistSchedule.Add(NewAppointment);
+                        therapist.schedule.Remove(appointment);
+                        therapist.schedule.Add(NewAppointment);
                         break;
                     }
                 }
@@ -104,10 +103,10 @@ namespace TherapyTracker
         }
         public void PrintTherapistSchedules()
         {
-            foreach (List<Appointment> therapistSchedule in masterSchedule)
+            foreach (Therapist therapist in masterTherapistList)
             {
                 //Console.WriteLine(therapistSchedule.therapist.name + "'s schedule:");
-                foreach (Appointment appointment in therapistSchedule)
+                foreach (Appointment appointment in therapist.schedule)
                 {
                     Console.WriteLine("ID: " + appointment.appointmentID);
                     Console.WriteLine("Patient name: " + appointment.patientIdentifier.name);
