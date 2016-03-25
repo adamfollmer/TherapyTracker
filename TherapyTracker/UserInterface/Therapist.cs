@@ -10,8 +10,13 @@ namespace UserInput
 {
     public class Therapist
     {
+        TherapyTracker.Therapist userTherapist;
         public Therapist()
         {
+        }
+        public void AssignTherapist(TherapyTracker.Therapist Therapist)
+        {
+            userTherapist = Therapist;
         }
         public void PrintTherapistMenu()
         {
@@ -25,13 +30,23 @@ namespace UserInput
             Console.WriteLine("7. View completed schedule.\n");
             Console.WriteLine("8. Return to Main Menu");
         }
-        public void MakeMenuSelection(TherapyTracker.Therapist Therapist, MainMenu Menu)
+        public void SelectMenuChoice(TherapyTracker.Therapist Therapist, MainMenu Menu)
         {
             int userChoice = 0;
             while (userChoice != 8)
             {
                 Console.WriteLine("Welcome " + Therapist.name + "!");
                 PrintTherapistMenu();
+                try
+                {
+                    userChoice = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Please enter in a number");
+                    SelectMenuChoice(Therapist, Menu);
+                    return;
+                }
                 userChoice = Convert.ToInt32(Console.ReadLine());
                 switch (userChoice)
                 {

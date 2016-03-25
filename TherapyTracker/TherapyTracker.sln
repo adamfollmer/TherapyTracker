@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TherapyTracker", "TherapyTr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInput", "UserInterface\UserInput.csproj", "{F989C249-09CA-40CF-AFEE-0BCD8198F3CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInput.Tests", "UserInput.Tests\UserInput.Tests.csproj", "{3A90C0C2-026D-492D-A825-B62DD4AEA022}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TherapyTracker.Test", "TherapyTracker.Test\TherapyTracker.Test.csproj", "{EE1742FF-A957-4ED5-87DD-DE463A44A03C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{F989C249-09CA-40CF-AFEE-0BCD8198F3CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F989C249-09CA-40CF-AFEE-0BCD8198F3CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F989C249-09CA-40CF-AFEE-0BCD8198F3CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A90C0C2-026D-492D-A825-B62DD4AEA022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A90C0C2-026D-492D-A825-B62DD4AEA022}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A90C0C2-026D-492D-A825-B62DD4AEA022}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A90C0C2-026D-492D-A825-B62DD4AEA022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1742FF-A957-4ED5-87DD-DE463A44A03C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1742FF-A957-4ED5-87DD-DE463A44A03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1742FF-A957-4ED5-87DD-DE463A44A03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1742FF-A957-4ED5-87DD-DE463A44A03C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,13 +10,23 @@ namespace UserInput.Tests
     [TestClass]
     public class UserInterfaceTest
     {
+        MainMenu test = new MainMenu();
         public void ShouldOnlyTakeNumbers()
         {
             //Arrange
-            MainMenu test = new MainMenu();
+            bool b;
             //Act
-            test.MakeMenuSelection();
+            try
+            {
+                test.MakeMenuSelection();
+                b = true;
+            }
+            catch
+            {
+                b = false;
+            }
             //Assert
+            Assert.IsTrue(b);
         }
     }
 }

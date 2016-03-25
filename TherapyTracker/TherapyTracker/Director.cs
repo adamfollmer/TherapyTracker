@@ -128,9 +128,5 @@ namespace TherapyTracker
                 Console.WriteLine();
             }
         }
-        public void Export()
-        {
-            
-        }
     }
 }

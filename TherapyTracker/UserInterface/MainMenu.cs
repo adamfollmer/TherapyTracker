@@ -17,7 +17,7 @@ namespace UserInput
         public MainMenu()
         {
             userTherapist = new Therapist();
-            userDirector = new Director();
+            userDirector = new Director(this);
             userPatient = new Patient();
             userNurse = new Nurse();
         }
@@ -49,15 +49,16 @@ namespace UserInput
                 {
                     Console.WriteLine("Please enter in a number");
                     MakeMenuSelection();
+                    return;
                 }
 
                 switch (userChoice)
                 {
                     case 1:
-                        userTherapist.MakeMenuSelection(SelectTherapist(), this);
+                        userTherapist.SelectMenuChoice(SelectTherapist(), this);
                         break;
                     case 2:
-                        userDirector.SelectMenu(this);
+                        userDirector.SelectMenuChoice();
                         break;
                     case 3:
                         CheckIfNewPatient();
@@ -133,7 +134,7 @@ namespace UserInput
             }
 
         }
-        public void CheckIfNewPatient()
+        public void CheckIfNewPatient()//should go in the nurseclass
         {
             Console.WriteLine("Is this refering to a new patient? (1)Yes or (2)No");
             int userInput = 0;
