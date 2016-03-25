@@ -8,11 +8,22 @@ namespace UserInput
 {
     public class Patient
     {
-        public void PatientMenu(TherapyTracker.Patient Patient, TherapyTracker.RunProgram Program)
+        TherapyTracker.Director mainDirector;
+        TherapyTracker.Patient patient;
+        public Patient (MainMenu Menu)
         {
-            Console.WriteLine("Hello "+ Patient.name + "!\n");
-            Patient.CheckTherapyTime(Program.mainDirector);
-            Console.ReadLine();
+            mainDirector = Menu.program.mainDirector;
+        }
+        public void AssignPatient(TherapyTracker.Patient Patient)
+        {
+            patient = Patient;
+            PatientMenu();
+        }
+        public void PatientMenu()
+        {
+            Console.WriteLine("Hello "+ patient.name + "!\n");
+            patient.CheckTherapyTime(mainDirector);
+            Console.WriteLine("\n");
         }
     }
 }

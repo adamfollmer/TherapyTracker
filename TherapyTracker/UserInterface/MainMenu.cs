@@ -16,10 +16,10 @@ namespace UserInput
         public Nurse userNurse;
         public MainMenu()
         {
-            userTherapist = new Therapist();
+            userTherapist = new Therapist(this);
             userDirector = new Director(this);
-            userPatient = new Patient();
-            userNurse = new Nurse();
+            userPatient = new Patient(this);
+            userNurse = new Nurse(this);
         }
         public void PopulateBuilding()
         {
@@ -44,6 +44,7 @@ namespace UserInput
                 try
                 {
                     userChoice = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
                 }
                 catch (FormatException)
                 {
@@ -55,16 +56,16 @@ namespace UserInput
                 switch (userChoice)
                 {
                     case 1:
-                        userTherapist.SelectMenuChoice(SelectTherapist(), this);
+                        userTherapist.AssignTherapist(SelectTherapist());
                         break;
                     case 2:
                         userDirector.SelectMenuChoice();
                         break;
                     case 3:
-                        CheckIfNewPatient();
+                        userNurse.CheckIfNewPatient();
                         break;
                     case 4:
-                        userPatient.PatientMenu(SelectPatient(), program);
+                        userPatient.AssignPatient(SelectPatient());
                         break;
                     case 5:
                         break;
@@ -133,34 +134,6 @@ namespace UserInput
                 return null;
             }
 
-        }
-        public void CheckIfNewPatient()//should go in the nurseclass
-        {
-            Console.WriteLine("Is this refering to a new patient? (1)Yes or (2)No");
-            int userInput = 0;
-            try
-            {
-                userInput = Convert.ToInt32(Console.ReadLine());
-                if (userInput != 1 && userInput != 2)
-                {
-                    Console.WriteLine("Please enter 1 or 2.");
-                    CheckIfNewPatient();
-                    return;
-                }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Please enter a valid number.");
-                CheckIfNewPatient();
-            }
-            if (userInput == 1)
-            {
-                userNurse.GetNewPatientInformation(program.mainDirector);
-            }
-            else if (userInput == 2)
-            {
-                userNurse.SelectMenuChoice(SelectPatient(), program);
-            }
         }
     }
 }

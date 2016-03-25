@@ -132,7 +132,7 @@ namespace UserInput
         {
             Console.WriteLine("Please enter a valid appointment ID");
             int appointmentID;
-            appointmentID = Convert.ToInt32(Console.ReadLine());
+            appointmentID = VerifyAppointmentID();
             return appointmentID;
         }
         public int VerifyAppointmentID()

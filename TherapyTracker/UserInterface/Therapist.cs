@@ -11,12 +11,15 @@ namespace UserInput
     public class Therapist
     {
         TherapyTracker.Therapist userTherapist;
-        public Therapist()
+        MainMenu menu;
+        public Therapist(MainMenu Menu)
         {
+            menu = Menu;
         }
         public void AssignTherapist(TherapyTracker.Therapist Therapist)
         {
             userTherapist = Therapist;
+            SelectMenuChoice();
         }
         public void PrintTherapistMenu()
         {
@@ -30,12 +33,12 @@ namespace UserInput
             Console.WriteLine("7. View completed schedule.\n");
             Console.WriteLine("8. Return to Main Menu");
         }
-        public void SelectMenuChoice(TherapyTracker.Therapist Therapist, MainMenu Menu)
+        public void SelectMenuChoice()
         {
             int userChoice = 0;
             while (userChoice != 8)
             {
-                Console.WriteLine("Welcome " + Therapist.name + "!");
+                Console.WriteLine("Welcome " + userTherapist.name + "!");
                 PrintTherapistMenu();
                 try
                 {
@@ -44,107 +47,150 @@ namespace UserInput
                 catch (FormatException)
                 {
                     Console.WriteLine("Please enter in a number");
-                    SelectMenuChoice(Therapist, Menu);
+                    SelectMenuChoice();
                     return;
                 }
-                userChoice = Convert.ToInt32(Console.ReadLine());
                 switch (userChoice)
                 {
                     case 1:
-                        Punch(Therapist);
+                        Punch();
                         break;
                     case 2:
-                        AddAppointment(Therapist, Menu);
+                        AddAppointment();
                         break;
                     case 3:
                         //Get New Patient
                         //Menu.program.mainDirector.
                         break;
                     case 4:
-                        CheckProductivity(Therapist);
+                        CheckProductivity();
                         break;
                     case 5:
-                        CompleteAppointment(Therapist, Menu);
+                        CompleteAppointment();
                         break;
                     case 6:
-                        Therapist.PrintSchedule();
+                        userTherapist.PrintSchedule();
                         break;
                     case 7:
-                        Therapist.PrintCompletedSchedule();
+                        userTherapist.PrintCompletedSchedule();
                         break;
                     default:
                         break;
                 }
             }
         }
-        public void Punch(TherapyTracker.Therapist Therapist)
+        public void Punch()
         {
             Console.WriteLine("Would you like to (1) live punch or (2) manual punch?");
-            if (Convert.ToInt32(Console.ReadLine()) == 1)
+            int userChoice = VerifyOneOrTwo();
+            if (userChoice == 1)
             {
-                Therapist.AutoPunch();
+                userTherapist.AutoPunch();
             }
             else
             {
-                ManualPunch(Therapist);
+                ManualPunch();
             }
         }
-        public void ManualPunch(TherapyTracker.Therapist Therapist)
+        public int VerifyOneOrTwo()
+        {
+            int userInput = 0;
+            try
+            {
+                userInput = Convert.ToInt32(Console.ReadLine());
+                if (userInput < 0 || userInput > 2)
+                {
+                    Console.WriteLine("Please select 1 or 2");
+                    return VerifyOneOrTwo();
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter numbers only.");
+                return VerifyOneOrTwo();
+            }
+            return userInput;
+        }
+        public void ManualPunch()
         {
             Console.WriteLine("Please enter in your time: ");
-            DateTime punch = Convert.ToDateTime(Console.ReadLine());
-            if (Therapist.punchStatus == true)
+            DateTime punch = VerifyValidDateInput();
+            if (userTherapist.punchStatus == true)
             {
-                Therapist.ManualPunchOut(punch);
+                userTherapist.ManualPunchOut(punch);
             }
             else
             {
-                Therapist.ManualPunchIn(punch);
+                userTherapist.ManualPunchIn(punch);
             }
         }
-        public void AddAppointment(TherapyTracker.Therapist Therapist, MainMenu Menu)
+        public DateTime VerifyValidDateInput()
         {
-            TherapyTracker.Patient holdPatient = Menu.SelectPatient();
+            string userInput;
+            DateTime returnDateTime;
+            try
+            {
+                userInput = Convert.ToString(Console.Read());
+                if (DateTime.TryParse(userInput, out returnDateTime))
+                {
+                    return returnDateTime;
+                }
+                else
+                {
+                    Console.WriteLine("Please provide the date/time in the following pattern:");
+                    Console.WriteLine("Year/Month/Day Hour:Minute:00");
+                    return VerifyValidDateInput();
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please only enter in numbers");
+                return VerifyValidDateInput();
+            }
+        }
+        public void AddAppointment()
+        {
+            TherapyTracker.Patient holdPatient = menu.SelectPatient();
             DateTime startTime = GetStartTime();
             DateTime endTime = GetEndTime(startTime);
             Appointment newAppointment = new TherapyTracker.Appointment(startTime, endTime, holdPatient);
-            Therapist.AddAppointment(newAppointment);
+            userTherapist.AddAppointment(newAppointment);
         }
         public DateTime GetStartTime()
         {
             Console.WriteLine("Appointment start time: ");
-            DateTime startTime = Convert.ToDateTime(Console.ReadLine());
+            DateTime startTime = VerifyValidDateInput();
             return startTime;
         }
         public DateTime GetEndTime(DateTime StartTime)
         {
             Console.WriteLine("For how many minutes?");
-            int timeToSee = Convert.ToInt32(Console.ReadLine());
+            int timeToSee = (int)menu.userDirector.VerifyMinuteAmount();
             DateTime endTime = StartTime.AddMinutes(timeToSee);
             return endTime;
         }
-        public void CheckProductivity(TherapyTracker.Therapist Therapist)
+        public void CheckProductivity()
         {
             Console.WriteLine("Which date do you want to check your productivity for?");
-            DateTime checkDate = Convert.ToDateTime(Console.ReadLine());
-            Therapist.CheckProductivity(checkDate.Date);
+            DateTime checkDate = VerifyValidDateInput().Date;
+            userTherapist.CheckProductivity(checkDate.Date);
 
         }
-        public void CompleteAppointment(TherapyTracker.Therapist Therapist, MainMenu Menu)
+        public void CompleteAppointment()
         {
-            TherapyTracker.Appointment appointmentToComplete = GetAppointment(Therapist);
+            TherapyTracker.Appointment appointmentToComplete = GetAppointment();
             Console.WriteLine("\nDid you complete the session as originally scheduled?");
             Console.WriteLine("(1)Yes or (2)No\n");
-            int userInput = Convert.ToInt32(Console.ReadLine());
+            int userInput = VerifyOneOrTwo();
             if (userInput == 1)
             {
                 TherapyTracker.CompletedAppointment completed = TransferScheduledAppointmentToCompletedAppointment(appointmentToComplete);
-                Therapist.AddCompleteAppointment(completed);
+                userTherapist.AddCompleteAppointment(completed);
             }
             else
             {
                 TherapyTracker.CompletedAppointment completed = GetCompletedAppointmentTime(appointmentToComplete);
-                Therapist.AddCompleteAppointment(completed);
+                userTherapist.AddCompleteAppointment(completed);
             }
         }
         public TherapyTracker.CompletedAppointment TransferScheduledAppointmentToCompletedAppointment(TherapyTracker.Appointment Appointment)
@@ -160,11 +206,10 @@ namespace UserInput
             completedAppointment.endTime = GetEndTime(completedAppointment.startTime);
             return completedAppointment;
         }
-        public TherapyTracker.Appointment GetAppointment(TherapyTracker.Therapist Therapist)
+        public TherapyTracker.Appointment GetAppointment()
         {
-            Console.WriteLine("Please enter in the appointment ID:");
-            int userInput = Convert.ToInt32(Console.ReadLine());
-            foreach (Appointment appointment in Therapist.schedule)
+            int userInput = menu.userDirector.GetAppointmentID();
+            foreach (Appointment appointment in userTherapist.schedule)
             {
                 if (userInput == appointment.appointmentID)
                 {

@@ -8,7 +8,16 @@ namespace UserInput
 {
     public class Nurse : Patient
     {
-        public TherapyTracker.Nurse ratchet = new TherapyTracker.Nurse();
+        public MainMenu menu;
+        public TherapyTracker.Director mainDirector;
+        public TherapyTracker.Patient patient;
+        public TherapyTracker.Nurse ratchet;
+        public Nurse (MainMenu Menu) : base(Menu)
+        {
+            menu = Menu;
+            mainDirector = Menu.program.mainDirector;
+            ratchet = new TherapyTracker.Nurse();
+        }
         public void PrintMenu()
         {
             Console.WriteLine("\n1. Remove a patient");
@@ -17,7 +26,36 @@ namespace UserInput
             Console.WriteLine("4. Exit to main menu\n");
             Console.WriteLine();
         }
-        public void SelectMenuChoice(TherapyTracker.Patient Patient, TherapyTracker.RunProgram Program)
+        public void CheckIfNewPatient()
+        {
+            Console.WriteLine("Is this refering to a new patient? (1)Yes or (2)No");
+            int userInput = 0;
+            try
+            {
+                userInput = Convert.ToInt32(Console.ReadLine());
+                if (userInput != 1 && userInput != 2)
+                {
+                    Console.WriteLine("Please enter 1 or 2.");
+                    CheckIfNewPatient();
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter a valid number.");
+                CheckIfNewPatient();
+            }
+            if (userInput == 1)
+            {
+                GetNewPatientInformation(mainDirector);
+            }
+            else if (userInput == 2)
+            {
+                patient = menu.SelectPatient();
+                SelectMenuChoice();
+            }
+        }
+        public void SelectMenuChoice()
         {
             int userChoice = 0;
             while (userChoice != 4)
@@ -30,19 +68,19 @@ namespace UserInput
                 catch (FormatException)
                 {
                     Console.WriteLine("Please enter in a number");
-                    SelectMenuChoice(Patient, Program);
+                    SelectMenuChoice();
                     return;
                 }
                 switch (userChoice)
                 {
                     case 1:
-                        ratchet.RemovePatient(Patient, Program.mainDirector);
+                        ratchet.RemovePatient(patient, mainDirector);
                         break;
                     case 2:
-                        ratchet.AddPatientPrefrences(Patient, GetTimeForPatientPreferenceAdd());
+                        ratchet.AddPatientPrefrences(patient, GetTimeForPatientPreferenceAdd());
                         break;
                     case 3:
-                        ratchet.RemovePatientPreference(Patient, GetConflictType());
+                        ratchet.RemovePatientPreference(patient, GetConflictType());
                         break;
                     default:
                         break;
