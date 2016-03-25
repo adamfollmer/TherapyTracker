@@ -64,13 +64,14 @@ namespace TherapyTracker
         {
             punchIn = time;
             punchStatus = true;
-            Console.WriteLine("\nPunch IN accepted at " + punchIn.ToShortTimeString());
+            Console.WriteLine("\nPunch IN accepted at " + punchIn.ToShortTimeString() + " for " + punchOut.Date);
         }
         public void ManualPunchOut(DateTime time)
         {
             punchOut = time;
             punchStatus = false;
-            Console.WriteLine("\nPunch OUT accepted at " + punchOut.ToShortTimeString());
+            Console.WriteLine("\nPunch OUT accepted at " + punchOut.ToShortTimeString() + " for " + punchOut.Date);
+            Console.WriteLine();
             AddProductivity();
         }
         public void CheckProductivity(DateTime CheckDate)

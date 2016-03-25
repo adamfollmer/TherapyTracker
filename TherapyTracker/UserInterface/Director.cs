@@ -130,13 +130,13 @@ namespace UserInput
         }
         public int GetAppointmentID()
         {
-            Console.WriteLine("Please enter a valid appointment ID");
             int appointmentID;
             appointmentID = VerifyAppointmentID();
             return appointmentID;
         }
         public int VerifyAppointmentID()
         {
+            Console.WriteLine("Please enter a valid appointment ID");
             int userInput = 0;
             try
             {
@@ -158,7 +158,7 @@ namespace UserInput
                 return VerifyAppointmentID();
             }
             Console.WriteLine("Not a valid ID, printing patient list so you can select an ID");
-            mainDirector.PrintPatientList();
+            mainDirector.PrintTherapistSchedules();
             return VerifyAppointmentID();
         }
         

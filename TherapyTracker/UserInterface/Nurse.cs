@@ -90,9 +90,9 @@ namespace UserInput
         public TherapyTracker.PatientTimeConflicts GetTimeForPatientPreferenceAdd()
         {
             Console.WriteLine("What is the start time of the conflict?");
-            DateTime start = VerifyDateTime();
+            DateTime start = menu.VerifyFullDateTimeSequence();
             Console.WriteLine("What is the end time of the conflict?");
-            DateTime end = VerifyDateTime();
+            DateTime end = menu.VerifyFullDateTimeSequence();
             Console.WriteLine("What is the reason for the conflict?");
 
             TherapyTracker.PatientTimeConflicts.ConflictType reason =
@@ -100,21 +100,6 @@ namespace UserInput
             TherapyTracker.PatientTimeConflicts conflict =
                 new TherapyTracker.PatientTimeConflicts(start, end, reason);
             return conflict;
-        }
-        public DateTime VerifyDateTime()
-        {
-            string input = Console.ReadLine();
-            DateTime dateTime;
-            if (DateTime.TryParse(input, out dateTime))
-            {
-                return dateTime;
-            }
-            else
-            {
-                Console.WriteLine("Please enter date and time in the following format: ");
-                Console.WriteLine("Month/Date/Year Hour:Minute:00");
-                return VerifyDateTime();
-            }
         }
         public void PrintConflictTypes()
         {

@@ -50,6 +50,7 @@ namespace UserInput
                     SelectMenuChoice();
                     return;
                 }
+                Console.Clear();
                 switch (userChoice)
                 {
                     case 1:
@@ -113,8 +114,7 @@ namespace UserInput
         }
         public void ManualPunch()
         {
-            Console.WriteLine("Please enter in your time: ");
-            DateTime punch = VerifyValidDateInput();
+            DateTime punch = menu.VerifyFullDateTimeSequence();
             if (userTherapist.punchStatus == true)
             {
                 userTherapist.ManualPunchOut(punch);
@@ -122,30 +122,6 @@ namespace UserInput
             else
             {
                 userTherapist.ManualPunchIn(punch);
-            }
-        }
-        public DateTime VerifyValidDateInput()
-        {
-            string userInput;
-            DateTime returnDateTime;
-            try
-            {
-                userInput = Convert.ToString(Console.Read());
-                if (DateTime.TryParse(userInput, out returnDateTime))
-                {
-                    return returnDateTime;
-                }
-                else
-                {
-                    Console.WriteLine("Please provide the date/time in the following pattern:");
-                    Console.WriteLine("Year/Month/Day Hour:Minute:00");
-                    return VerifyValidDateInput();
-                }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Please only enter in numbers");
-                return VerifyValidDateInput();
             }
         }
         public void AddAppointment()
@@ -159,7 +135,7 @@ namespace UserInput
         public DateTime GetStartTime()
         {
             Console.WriteLine("Appointment start time: ");
-            DateTime startTime = VerifyValidDateInput();
+            DateTime startTime = menu.VerifyFullDateTimeSequence();
             return startTime;
         }
         public DateTime GetEndTime(DateTime StartTime)
@@ -172,9 +148,8 @@ namespace UserInput
         public void CheckProductivity()
         {
             Console.WriteLine("Which date do you want to check your productivity for?");
-            DateTime checkDate = VerifyValidDateInput().Date;
+            DateTime checkDate = menu.VerifyDateOnlySequence().Date;
             userTherapist.CheckProductivity(checkDate.Date);
-
         }
         public void CompleteAppointment()
         {
@@ -216,7 +191,7 @@ namespace UserInput
                     return appointment;
                 }
             }
-            return null;
+            return GetAppointment();
         }
     }
 
