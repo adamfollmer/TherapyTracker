@@ -64,10 +64,11 @@ namespace UserInput
                 try
                 {
                     userChoice = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Please enter in a number");
+                    Console.WriteLine("[ERROR]: Please enter in a number\n");
                     SelectMenuChoice();
                     return;
                 }
@@ -89,11 +90,11 @@ namespace UserInput
         }
         public TherapyTracker.PatientTimeConflicts GetTimeForPatientPreferenceAdd()
         {
-            Console.WriteLine("What is the start time of the conflict?");
+            Console.WriteLine("What is the start time of the conflict?\n");
             DateTime start = menu.VerifyFullDateTimeSequence();
-            Console.WriteLine("What is the end time of the conflict?");
+            Console.WriteLine("What is the end time of the conflict?\n");
             DateTime end = menu.VerifyFullDateTimeSequence();
-            Console.WriteLine("What is the reason for the conflict?");
+            Console.WriteLine("What is the reason for the conflict?\n");
 
             TherapyTracker.PatientTimeConflicts.ConflictType reason =
                 (TherapyTracker.PatientTimeConflicts.ConflictType)GetConflictType();
@@ -110,34 +111,34 @@ namespace UserInput
         public int GetConflictType()
         {
             PrintConflictTypes();
-            Console.WriteLine("Select conflict type?");
+            Console.WriteLine("Select conflict type:\n");
             try
             {
                 int userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput < 0 || userInput > 4)
                 {
-                    Console.WriteLine("Please select from the available options.");
+                    Console.WriteLine("[ERROR]: Please select from the available options.\n");
                     return GetConflictType();
                 }
                 return userInput;
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please only enter a number");
+                Console.WriteLine("[ERROR]: Please only enter a number\n");
                 return GetConflictType();
             }
         }
         public void GetNewPatientInformation(TherapyTracker.Director Director)
         {
-            Console.WriteLine("What is the Patient's Name?");
+            Console.WriteLine("What is the Patient's Name?\n");
             string newPatientName = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Provide a unique numerical identifier for the patient.");
+            Console.WriteLine("Provide a unique numerical identifier for the patient:\n");
             try
             {
                 int newPatientID = Convert.ToInt32(Console.ReadLine());
                 if (newPatientID < 1000 || newPatientID > 10000)
                 {
-                    Console.WriteLine("Please only enter a four digit number");
+                    Console.WriteLine("[ERROR]: Please only enter a four digit number\n");
                     GetNewPatientInformation(Director);
                     return;
                 }
@@ -146,7 +147,7 @@ namespace UserInput
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please only enter a number");
+                Console.WriteLine("[ERROR]: Please only enter a number\n");
                 GetNewPatientInformation(Director);
             } 
         }

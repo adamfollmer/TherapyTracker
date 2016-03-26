@@ -23,7 +23,6 @@ namespace UserInput
         {
             Console.WriteLine("Hello "+ patient.name + "!\n");
             patient.CheckTherapyTime(mainDirector);
-            Console.WriteLine("\n");
         }
     }
 }

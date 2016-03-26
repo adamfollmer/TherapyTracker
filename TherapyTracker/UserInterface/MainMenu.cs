@@ -68,6 +68,7 @@ namespace UserInput
                         userPatient.AssignPatient(SelectPatient());
                         break;
                     case 5:
+                        Environment.Exit(1);
                         break;
                     default:
                         break;
@@ -93,15 +94,16 @@ namespace UserInput
             try
             {
                 userChoice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 if (userChoice <= 0 || userChoice > program.mainDirector.masterTherapistList.Count)
                 {
-                    Console.WriteLine("Please enter a valid number.");
+                    Console.WriteLine("[ERROR]: Please enter a valid number.\n");
                     return SelectTherapist();
                 }
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter a number.");
+                Console.WriteLine("[ERROR]: Please enter a number.\n");
                 return SelectTherapist();
             }
             Console.Clear();
@@ -114,6 +116,7 @@ namespace UserInput
             try
             {
                 userChoice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 int patientCount = 0;
                 foreach (TherapyTracker.Patient patient in program.mainDirector.masterPatientList)
                 {
@@ -123,16 +126,17 @@ namespace UserInput
                     }
                     patientCount++;
                 }
-                Console.WriteLine("\nNot a valid choice, returning to main menu\n");
-                Console.WriteLine("Please ask the director if you're having difficulty recalling an ID");
+                Console.WriteLine("[ERROR]: Not a valid choice, returning to main menu\n");
+                Console.WriteLine("Please ask the director if you're having difficulty recalling an ID\n");
                 MakeMenuSelection();
-                return null;
+                return SelectPatient();
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please ask the director if you're having difficulty recalling an ID");
+                Console.WriteLine("[ERROR]: Not a valid choice, returning to main menu\n");
+                Console.WriteLine("Please ask the director if you're having difficulty recalling an ID\n");
                 MakeMenuSelection();
-                return null;
+                return SelectPatient();
             }
 
         }
@@ -169,14 +173,15 @@ namespace UserInput
         public int VerifyMinutes()
         {
             
-            Console.WriteLine("Enter in the minutes");
+            Console.WriteLine("Enter in the minute:\n");
             int userMinutes;
             try
             {
                 userMinutes = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 if (userMinutes < 0 || userMinutes > 59)
                 {
-                    Console.WriteLine("Minutes range from 0 to 59");
+                    Console.WriteLine("[ERROR]: Minutes range from 0 to 59\n");
                     return VerifyMinutes();
                 }
                 Console.Clear();
@@ -184,7 +189,7 @@ namespace UserInput
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only");
+                Console.WriteLine("[ERROR]: Please enter numbers only\n");
                 return VerifyMinutes();
             }
             
@@ -192,14 +197,15 @@ namespace UserInput
         public int VerifyHours()
         {
             
-            Console.WriteLine("Enter in the hours");
+            Console.WriteLine("Enter in the hour:\n");
             int userHours;
             try
             {
                 userHours = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 if (userHours < 0 || userHours > 23)
                 {
-                    Console.WriteLine("Days range from 0 to 23");
+                    Console.WriteLine("[ERROR]: Days range from 0 to 23\n");
                     return VerifyHours();
                 }
                 Console.Clear();
@@ -207,7 +213,7 @@ namespace UserInput
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only");
+                Console.WriteLine("[ERROR]: Please enter numbers only\n");
                 return VerifyHours();
             }
             
@@ -215,14 +221,15 @@ namespace UserInput
         public int VerifyMonth()
         {
             
-            Console.WriteLine("Enter in the month");
+            Console.WriteLine("Enter in the month\n");
             int userMonth;
             try
             {
                 userMonth = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 if (userMonth <= 0 || userMonth > 12)
                 {
-                    Console.WriteLine("Months range from 1 to 12");
+                    Console.WriteLine("[ERROR]: Months range from 1 to 12\n");
                     return VerifyMonth();
                 }
                 Console.Clear();
@@ -230,21 +237,22 @@ namespace UserInput
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only");
+                Console.WriteLine("[ERROR]: Please enter numbers only\n");
                 return VerifyMonth();
             }
         }
         public int VerifyDay()
         {
             
-            Console.WriteLine("Enter in the day");
+            Console.WriteLine("Enter in the day\n");
             int userDay;
             try
             {
                 userDay = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 if (userDay <= 0 || userDay > 31)
                 {
-                    Console.WriteLine("Days range from 1 to 31");
+                    Console.WriteLine("[ERROR]: Days range from 1 to 31\n");
                     return VerifyDay();
                 }
                 Console.Clear();
@@ -252,7 +260,7 @@ namespace UserInput
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only");
+                Console.WriteLine("[ERROR]: Please enter numbers only\n");
                 return VerifyDay();
             }
         }

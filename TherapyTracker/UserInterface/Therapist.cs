@@ -43,10 +43,11 @@ namespace UserInput
                 try
                 {
                     userChoice = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Please enter in a number");
+                    Console.WriteLine("[ERROR]: Please enter in a number\n");
                     SelectMenuChoice();
                     return;
                 }
@@ -82,7 +83,7 @@ namespace UserInput
         }
         public void Punch()
         {
-            Console.WriteLine("Would you like to (1) live punch or (2) manual punch?");
+            Console.WriteLine("Would you like to (1) live punch or (2) manual punch?\n");
             int userChoice = VerifyOneOrTwo();
             if (userChoice == 1)
             {
@@ -99,15 +100,16 @@ namespace UserInput
             try
             {
                 userInput = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 if (userInput < 0 || userInput > 2)
                 {
-                    Console.WriteLine("Please select 1 or 2");
+                    Console.WriteLine("[ERROR]: Please select 1 or 2\n");
                     return VerifyOneOrTwo();
                 }
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only.");
+                Console.WriteLine("[ERROR]: Please enter numbers only.\n");
                 return VerifyOneOrTwo();
             }
             return userInput;
@@ -134,27 +136,27 @@ namespace UserInput
         }
         public DateTime GetStartTime()
         {
-            Console.WriteLine("Appointment start time: ");
+            Console.WriteLine("Appointment start time: \n");
             DateTime startTime = menu.VerifyFullDateTimeSequence();
             return startTime;
         }
         public DateTime GetEndTime(DateTime StartTime)
         {
-            Console.WriteLine("For how many minutes?");
+            Console.WriteLine("FOR how many minutes?\n");
             int timeToSee = (int)menu.userDirector.VerifyMinuteAmount();
             DateTime endTime = StartTime.AddMinutes(timeToSee);
             return endTime;
         }
         public void CheckProductivity()
         {
-            Console.WriteLine("Which date do you want to check your productivity for?");
+            Console.WriteLine("Which date do you want to check your productivity for?\n");
             DateTime checkDate = menu.VerifyDateOnlySequence().Date;
             userTherapist.CheckProductivity(checkDate.Date);
         }
         public void CompleteAppointment()
         {
             TherapyTracker.Appointment appointmentToComplete = GetAppointment();
-            Console.WriteLine("\nDid you complete the session as originally scheduled?");
+            Console.WriteLine("Did you complete the session as originally scheduled?\n");
             Console.WriteLine("(1)Yes or (2)No\n");
             int userInput = VerifyOneOrTwo();
             if (userInput == 1)

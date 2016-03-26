@@ -120,8 +120,8 @@ namespace TherapyTracker
             foreach (Appointment appointment in schedule)
             {
                 Console.WriteLine();
-                Console.WriteLine(appointment.patientIdentifier.name);
-                Console.WriteLine(appointment.appointmentID);
+                Console.WriteLine("Patient name: " + appointment.patientIdentifier.name);
+                Console.WriteLine("Appointment ID: " + appointment.appointmentID);
                 Console.WriteLine("From " + appointment.startTime + " to " + appointment.endTime);
                 Console.WriteLine();
             }

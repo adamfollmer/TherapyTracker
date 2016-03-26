@@ -17,7 +17,7 @@ namespace UserInput
         }
         public void PrintMenuOptions()
         {
-            Console.WriteLine("\n1. Set patient's RUG level");
+            Console.WriteLine("1. Set patient's RUG level");
             Console.WriteLine("2. Increase minutes for appointment");
             Console.WriteLine("3. Reduce minutes for appointment");
             Console.WriteLine("4. View all Schedules");
@@ -33,10 +33,11 @@ namespace UserInput
                 try
                 {
                     userChoice = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Please enter in a number");
+                    Console.WriteLine("[ERROR]: Please enter in a number\n");
                     SelectMenuChoice();
                     return;
                 }
@@ -71,7 +72,7 @@ namespace UserInput
         }
         public int SelectRugOption()
         {
-            Console.WriteLine("Pick a number corresponding to a level");
+            Console.WriteLine("Pick a number corresponding to a level\n");
             Console.WriteLine("1. RU\n2. RV\n3. RH\n4. RM\n5. RL");
             int userInput = VerifyRugSelection();
             return userInput;
@@ -84,13 +85,13 @@ namespace UserInput
                 userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput < 0 || userInput > 5)
                 {
-                    Console.WriteLine("Please select from a valid option");
+                    Console.WriteLine("[ERROR]: Please select from a valid option\n");
                     return VerifyRugSelection();
                 }
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only.");
+                Console.WriteLine("[ERROR]: Please enter numbers only.\n");
                 return VerifyRugSelection();
             }
             return userInput;
@@ -98,14 +99,14 @@ namespace UserInput
         public void IncreaseMinutes()
         {
             int appointmentID = GetAppointmentID();
-            Console.WriteLine("How much more time is required?");
+            Console.WriteLine("How much more time is required?\n");
             double timeIncrease = VerifyMinuteAmount();
             mainDirector.IncreasePatientTimeSeen(appointmentID, timeIncrease);
         }
         public void DecreaseMinutes()
         {
             int appointmentID = GetAppointmentID();
-            Console.WriteLine("How much less time would you like?");
+            Console.WriteLine("How much less time would you like?\n");
             double timeDecrease = VerifyMinuteAmount();
             mainDirector.DecreasePatientTimeSeen(appointmentID, timeDecrease);
         }
@@ -115,15 +116,16 @@ namespace UserInput
             try
             {
                 userInput = Convert.ToDouble(Console.ReadLine());
-                if (userInput < 0 || userInput > 120)
+                Console.Clear();
+                if (userInput <= 0 || userInput > 120)
                 {
-                    Console.WriteLine("The amount of time is too short or too long");
+                    Console.WriteLine("[ERROR]: The amount of time is too short or too long\n");
                     return VerifyMinuteAmount();
                 }
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only.");
+                Console.WriteLine("[ERROR]: Please enter numbers only.\n");
                 return VerifyMinuteAmount();
             }
             return userInput;
@@ -136,11 +138,12 @@ namespace UserInput
         }
         public int VerifyAppointmentID()
         {
-            Console.WriteLine("Please enter a valid appointment ID");
+            Console.WriteLine("Please enter a valid appointment ID:\n");
             int userInput = 0;
             try
             {
                 userInput = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 foreach (TherapyTracker.Therapist therapist in mainDirector.masterTherapistList)
                 {
                     foreach(TherapyTracker.Appointment appointment in therapist.schedule)
@@ -154,10 +157,10 @@ namespace UserInput
             }
             catch (FormatException)
             {
-                Console.WriteLine("Please enter numbers only.");
+                Console.WriteLine("[ERROR]: Please enter numbers only.\n");
                 return VerifyAppointmentID();
             }
-            Console.WriteLine("Not a valid ID, printing patient list so you can select an ID");
+            Console.WriteLine("[ERROR]: Not a valid ID, refer to the list below for an appointment ID\n");
             mainDirector.PrintTherapistSchedules();
             return VerifyAppointmentID();
         }
