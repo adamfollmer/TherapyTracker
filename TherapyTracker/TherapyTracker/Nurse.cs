@@ -20,6 +20,8 @@ namespace TherapyTracker
         public void AddPatientPrefrences(Patient Patient, PatientTimeConflicts Conflict)
         {
             Patient.potentialConflicts.Add(Conflict);
+            Console.WriteLine("Conflict added for " + Patient.name + ".");
+            Console.Clear();
         }
         public void RemovePatientPreference(Patient Patient, int ConflictTypeNumber)
         {
@@ -28,8 +30,13 @@ namespace TherapyTracker
                 if ((int)conflicts.conflictIdentifier == ConflictTypeNumber)
                 {
                     Patient.potentialConflicts.Remove(conflicts);
+                    Console.Clear();
+                    Console.WriteLine("Conflict removed");
+                    return;
                 }
             }
+            Console.Clear();
+            Console.WriteLine("[ERROR]: No conflict exists matching this critera");
         }
     }
 }

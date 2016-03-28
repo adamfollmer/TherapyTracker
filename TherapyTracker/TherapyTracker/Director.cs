@@ -26,31 +26,30 @@ namespace TherapyTracker
             if (GetAppointmentFromID(AppointmentID) != null)
             {
                 Appointment holdAppointment = GetAppointmentFromID(AppointmentID);
-                holdAppointment.endTime.AddMinutes(IncreasedTime);
+                holdAppointment.endTime = holdAppointment.endTime.AddMinutes(IncreasedTime);
                 if (CheckTimeConflict(holdAppointment) == true)
                 {
-                    Console.WriteLine("There is a time conflict with this");
+                    Console.WriteLine("[ERROR]: There is a time conflict with this");
                 }
                 else
                 {
-                    SwitchAppointments(AppointmentID, holdAppointment);
+                    SwitchTimeOfAppointment(AppointmentID, holdAppointment);
                 }
             }
-            //If not, rearrange schedule to fit everything with no conflicts - LOL YEAH RIGHT
         }
-        public void DecreasePatientTimeSeen(int AppointmentID, double IncreasedTime)
+        public void DecreasePatientTimeSeen(int AppointmentID, double DecreasedTime)
         {
             if (GetAppointmentFromID(AppointmentID) != null)
             {
                 Appointment holdAppointment = GetAppointmentFromID(AppointmentID);
-                holdAppointment.endTime.AddMinutes(-IncreasedTime);
+                holdAppointment.endTime = holdAppointment.endTime.AddMinutes(-DecreasedTime);
                 if (CheckTimeConflict(holdAppointment) == true)
                 {
-                    Console.WriteLine("There is a time conflict with this");
+                    Console.WriteLine("[ERROR}: There is a time conflict with this");
                 }
                 else
                 {
-                    SwitchAppointments(AppointmentID, holdAppointment);
+                    SwitchTimeOfAppointment(AppointmentID, holdAppointment);
                 }
             }
         }
@@ -62,7 +61,10 @@ namespace TherapyTracker
                 {
                     if (appointment.patientIdentifier.uniqueID == ProposedAppointment.patientIdentifier.uniqueID)
                     {
-                        if (appointment.endTime.Ticks >= ProposedAppointment.startTime.Ticks ||
+                        if (appointment.appointmentID == ProposedAppointment.appointmentID)
+                        {
+                            
+                        } else if (appointment.endTime.Ticks >= ProposedAppointment.startTime.Ticks ||
                              ProposedAppointment.endTime.Ticks >= appointment.startTime.Ticks)
                         {
                             return true;
@@ -85,10 +87,10 @@ namespace TherapyTracker
                     }
                 }
             }
-            Console.WriteLine("Appointment not found, returning to main menu");
+            Console.WriteLine("[ERROR]: Appointment not found, returning to main menu");
             return null;
         }
-        public void SwitchAppointments(int AppointmentID, Appointment NewAppointment)
+        public void SwitchTimeOfAppointment(int AppointmentID, Appointment NewAppointment)
         {
             foreach (Therapist therapist in masterTherapistList)
             {
@@ -96,8 +98,7 @@ namespace TherapyTracker
                 {
                     if (appointment.appointmentID == AppointmentID)
                     {
-                        therapist.schedule.Remove(appointment);
-                        therapist.schedule.Add(NewAppointment);
+                        appointment.endTime = NewAppointment.endTime;
                         break;
                     }
                 }

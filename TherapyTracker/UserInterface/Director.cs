@@ -83,16 +83,17 @@ namespace UserInput
             try
             {
                 userInput = Convert.ToInt32(Console.ReadLine());
-                if (userInput < 0 || userInput > 5)
+                Console.Clear();
+                if (userInput <= 0 || userInput > 5)
                 {
                     Console.WriteLine("[ERROR]: Please select from a valid option\n");
-                    return VerifyRugSelection();
+                    return SelectRugOption();
                 }
             }
             catch (FormatException)
             {
                 Console.WriteLine("[ERROR]: Please enter numbers only.\n");
-                return VerifyRugSelection();
+                return SelectRugOption();
             }
             return userInput;
         }
