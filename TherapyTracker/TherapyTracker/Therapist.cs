@@ -33,17 +33,27 @@ namespace TherapyTracker
         public void AddAppointment(Appointment Appointment)
         {
             schedule.Add(Appointment);
-            Console.WriteLine("\nAn appointment has been added for " + Appointment.patientIdentifier.name);
+            Console.WriteLine("\nAn appointment with patient " + Appointment.patientIdentifier.name + " has been added to " + name + "'s schedule.");
             Console.WriteLine("Starting at " + Appointment.startTime + " and ending at " + Appointment.endTime + ".\n");
         }
-        //public void GetNewPatient() //By far the most complicated thing
-        //{WILL LIKELY LEAVE OUT FOR NOW
-
-        //    //Look at remaining schedule
-        //    //Determine which patient is available by checking:
-        //    //Patients preferences
-        //    //Other scheduled times
-        //}
+        public void MoveCurrentPatientToEndOfDay()
+        {
+            Appointment conflictedAppointment = schedule[0];
+            schedule.RemoveAt(0);
+            schedule.Add(conflictedAppointment);
+            double appointmentLength = conflictedAppointment.subtractTimeDifferenceMinutes();
+            AdjustTimeForMovedPatient(appointmentLength);
+            Console.WriteLine("Move successful. Printing new Schedule:");
+            PrintSchedule();
+        }
+        public void AdjustTimeForMovedPatient(double AppointmentLength)
+        {
+            DateTime newStartTime = schedule[schedule.Count - 2].endTime;
+            newStartTime = newStartTime.AddMinutes(5);
+            schedule[schedule.Count - 1].startTime = newStartTime;
+            DateTime newEndTime = newStartTime.AddMinutes(AppointmentLength);
+            schedule[schedule.Count - 1].endTime = newEndTime;
+        }
         public void AutoPunch()
         {
             if (punchStatus == false)
@@ -64,13 +74,13 @@ namespace TherapyTracker
         {
             punchIn = time;
             punchStatus = true;
-            Console.WriteLine("\nPunch IN accepted at " + punchIn.ToShortTimeString() + " for " + punchOut.Date);
+            Console.WriteLine("\nPunch IN accepted at " + punchIn.ToShortTimeString() + " for " + punchIn.ToString("d"));
         }
         public void ManualPunchOut(DateTime time)
         {
             punchOut = time;
             punchStatus = false;
-            Console.WriteLine("\nPunch OUT accepted at " + punchOut.ToShortTimeString() + " for " + punchOut.Date);
+            Console.WriteLine("\nPunch OUT accepted at " + punchOut.ToShortTimeString() + " for " + punchOut.ToString("d"));
             Console.WriteLine();
             AddProductivity();
         }

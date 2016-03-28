@@ -26,7 +26,7 @@ namespace UserInput
             Console.WriteLine("\nPlease select an option: \n");
             Console.WriteLine("1. Punch in or out");
             Console.WriteLine("2. Add an appointment");
-            Console.WriteLine("3. Assign a new patient");
+            Console.WriteLine("3. Move next patient to the end of the schedule");
             Console.WriteLine("4. Check productivity from a previous day");
             Console.WriteLine("5. Complete an appointment");
             Console.WriteLine("6. View therapist schedule.");
@@ -61,8 +61,7 @@ namespace UserInput
                         AddAppointment();
                         break;
                     case 3:
-                        //Get New Patient
-                        //Menu.program.mainDirector.
+                        userTherapist.MoveCurrentPatientToEndOfDay();
                         break;
                     case 4:
                         CheckProductivity();
@@ -117,8 +116,20 @@ namespace UserInput
         public void ManualPunch()
         {
             DateTime punch = menu.VerifyFullDateTimeSequence();
+            if (punch.Ticks > DateTime.Now.Ticks)
+            {
+                Console.WriteLine("[ERROR]: Date can't be in the future");
+                ManualPunch();
+                return;
+            }
             if (userTherapist.punchStatus == true)
             {
+                if (punch.Ticks < userTherapist.punchIn.Ticks)
+                {
+                    Console.WriteLine("[ERROR]: Attempted punch out would occur before registered punch in");
+                    ManualPunch();
+                    return;
+                }
                 userTherapist.ManualPunchOut(punch);
             }
             else
@@ -193,6 +204,7 @@ namespace UserInput
                     return appointment;
                 }
             }
+            Console.WriteLine("[ERROR]: This appointment is not in this therapists schedule");
             return GetAppointment();
         }
     }

@@ -136,11 +136,21 @@ namespace UserInput
             try
             {
                 int newPatientID = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
                 if (newPatientID < 1000 || newPatientID > 10000)
                 {
                     Console.WriteLine("[ERROR]: Please only enter a four digit number\n");
                     GetNewPatientInformation(Director);
                     return;
+                }
+                foreach (TherapyTracker.Patient patient in mainDirector.masterPatientList)
+                {
+                    if (patient.uniqueID == newPatientID)
+                    {
+                        Console.WriteLine("[ERROR]: This ID is already in use, try again.");
+                        GetNewPatientInformation(Director);
+                        return;
+                    }
                 }
                 TherapyTracker.Patient newPatient = new TherapyTracker.Patient(newPatientName, newPatientID);
                 ratchet.AddPatient(newPatient, Director);
