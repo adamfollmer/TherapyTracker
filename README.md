@@ -4,10 +4,9 @@
 
 Known bugs:
 
--When adding time to a patients appointment, conflicts do not check
-surrounding appointments for the therapist.
+	When adding time to a patients appointment, conflicts do not check surrounding appointments for the therapist.
 
--Not confirmed, however, other bugs likely exist with time conflicts
+	Not confirmed, however, other bugs likely exist with time conflicts
 
 
 Modified features:
@@ -22,4 +21,4 @@ Modified features:
 
 Current version comes with a building implemented. This includes a director, three therapists, and 8 patients. Appointments are also included for therapists.
 
-	Time conflicts (from a patient's perspective) are not pre-coded in, however they can easily be added through the nurse menu.
+Time conflicts (from a patient's perspective) are not pre-coded in, however they can easily be added through the nurse menu.
